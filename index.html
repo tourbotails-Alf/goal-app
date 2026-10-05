@@ -377,7 +377,7 @@ body {
     line-height: 1.5;
 }
 
-.rebirthButton {
+.levelUpButton {
     width: 100%;
     border: none;
     padding: 14px;
@@ -389,11 +389,11 @@ body {
     cursor: pointer;
 }
 
-.rebirthButton:hover {
+.levelUpButton:hover {
     background: #7c3aed;
 }
 
-.rebirthButton:disabled {
+.levelUpButton:disabled {
     background: #475569;
     color: #94a3b8;
     cursor: not-allowed;
@@ -955,22 +955,22 @@ body {
             <div class="shopItem">
 
                 <div class="shopItemIcon">
-                    🔄
+                    ⬆️
                 </div>
 
                 <h3>
-                    Rebirth
+                    Level Up
                 </h3>
 
-                <p id="rebirthDescription">
-                    Spend points to rebirth and reach the next level.
+                <p id="levelUpDescription">
+                    Spend points to level up and reach the next level.
                 </p>
 
                 <button
-                    id="rebirthButton"
-                    class="rebirthButton"
-                    onclick="openRebirthPopup()">
-                    🔄 Rebirth
+                    id="levelUpButton"
+                    class="levelUpButton"
+                    onclick="openLevelUpPopup()">
+                    ⬆️ Level Up
                 </button>
 
             </div>
@@ -1099,7 +1099,7 @@ body {
 
 
 <!-- =========================
-     REBIRTH POPUP
+     LEVEL UP POPUP
 ========================= -->
 
 <div id="popup">
@@ -1107,7 +1107,7 @@ body {
     <div class="popupBox">
 
         <h2>
-            🔄 Rebirth
+            ⬆️ Level Up
         </h2>
 
         <p id="popupText">
@@ -1118,8 +1118,8 @@ body {
 
             <button
                 class="confirmButton"
-                onclick="confirmRebirth()">
-                Yes, Rebirth
+                onclick="confirmLevelUp()">
+                Yes, Level Up
             </button>
 
             <button
@@ -1774,7 +1774,7 @@ function renderChildStats() {
     Level 5 -> Level 6 = 320 points
 */
 
-function getRebirthCost(level) {
+function getLevelUpCost(level) {
 
     if (level === 1) {
         return 10;
@@ -1803,7 +1803,7 @@ function renderChildLevel() {
 
 
     const cost =
-        getRebirthCost(account.level);
+        getLevelUpCost(account.level);
 
 
     const percentage =
@@ -1839,7 +1839,7 @@ function renderChildLevel() {
         document.getElementById(
             "levelInfo"
         ).textContent =
-            "🎉 You have enough points for rebirth!";
+            "🎉 You have enough points to level up!";
 
     } else {
 
@@ -1878,7 +1878,7 @@ function renderShop() {
 
 
     const cost =
-        getRebirthCost(account.level);
+        getLevelUpCost(account.level);
 
 
     document.getElementById(
@@ -1888,11 +1888,11 @@ function renderShop() {
 
 
     document.getElementById(
-        "rebirthDescription"
+        "levelUpDescription"
     ).textContent =
         "Spend "
         + cost
-        + " points to rebirth from Level "
+        + " points to level up from Level "
         + account.level
         + " to Level "
         + (account.level + 1)
@@ -1901,7 +1901,7 @@ function renderShop() {
 
     const button =
         document.getElementById(
-            "rebirthButton"
+            "levelUpButton"
         );
 
 
@@ -1912,7 +1912,7 @@ function renderShop() {
     if (account.points >= cost) {
 
         button.textContent =
-            "🔄 Rebirth for "
+            "⬆️ Level Up for "
             + cost
             + " Points";
 
@@ -1929,10 +1929,10 @@ function renderShop() {
 
 
 /* =====================================================
-   REBIRTH POPUP
+   LEVEL UP POPUP
 ===================================================== */
 
-function openRebirthPopup() {
+function openLevelUpPopup() {
 
     const account =
         getCurrentAccount();
@@ -1944,7 +1944,7 @@ function openRebirthPopup() {
 
 
     const cost =
-        getRebirthCost(account.level);
+        getLevelUpCost(account.level);
 
 
     if (account.points < cost) {
@@ -1988,7 +1988,7 @@ function closePopup() {
 }
 
 
-function confirmRebirth() {
+function confirmLevelUp() {
 
     const account =
         getCurrentAccount();
@@ -2000,7 +2000,7 @@ function confirmRebirth() {
 
 
     const cost =
-        getRebirthCost(account.level);
+        getLevelUpCost(account.level);
 
 
     if (account.points < cost) {
@@ -2025,7 +2025,7 @@ function confirmRebirth() {
 
 
     alert(
-        "🎉 Rebirth complete!\n\n"
+        "🎉 Level Up complete!\n\n"
         + "You are now Level "
         + account.level
         + "!"
