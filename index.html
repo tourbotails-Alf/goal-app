@@ -8,103 +8,95 @@
 <style>
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
+    margin: 0;
     font-family: Arial, sans-serif;
     background: #0f172a;
     color: white;
-    min-height: 100vh;
 }
 
-/* =========================
-   LOGIN / ACCOUNT SCREEN
-========================= */
+button,
+input,
+select {
+    font-family: inherit;
+}
 
-#loginScreen {
+button {
+    cursor: pointer;
+}
+
+/* ACCOUNT SCREEN */
+
+#accountScreen {
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 25px;
+    padding: 20px;
 }
 
-.loginBox {
+.accountBox {
     width: 100%;
-    max-width: 650px;
+    max-width: 500px;
     background: #1e293b;
     padding: 30px;
-    border-radius: 22px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,.35);
 }
 
-.loginBox h1 {
+.accountBox h1 {
     text-align: center;
-    font-size: 32px;
-    margin-bottom: 8px;
+    margin-top: 0;
 }
 
-.loginBox .subtitle {
+.accountBox p {
     text-align: center;
     color: #94a3b8;
-    margin-bottom: 25px;
 }
 
 .accountList {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 12px;
+    margin-top: 25px;
 }
 
-.accountCard {
-    background: #020617;
-    border: 2px solid #334155;
-    border-radius: 18px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    transition: 0.2s;
+.accountButton {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 12px;
+    background: #334155;
+    color: white;
+    font-size: 17px;
+    text-align: left;
 }
 
-.accountCard:hover {
-    transform: translateY(-3px);
-    border-color: #60a5fa;
-    background: #111827;
-}
-
-.accountIcon {
-    font-size: 42px;
-    margin-bottom: 8px;
-}
-
-.accountName {
-    font-size: 18px;
-    font-weight: bold;
+.accountButton:hover {
+    background: #475569;
 }
 
 .accountType {
     color: #94a3b8;
     font-size: 13px;
-    margin-top: 5px;
+    margin-top: 4px;
 }
 
-.createAccountButton {
+.newAccountButton {
     width: 100%;
+    margin-top: 18px;
+    padding: 14px;
     border: none;
-    padding: 15px;
-    border-radius: 14px;
-    background: #2563eb;
+    border-radius: 12px;
+    background: #22c55e;
     color: white;
     font-size: 16px;
     font-weight: bold;
-    cursor: pointer;
 }
 
-.createAccountButton:hover {
-    background: #1d4ed8;
+.newAccountButton:hover {
+    background: #16a34a;
 }
 
 /* CREATE ACCOUNT */
@@ -116,597 +108,514 @@ body {
 .roleButtons {
     display: flex;
     gap: 10px;
-    margin-bottom: 18px;
+    margin-top: 20px;
 }
 
 .roleButton {
     flex: 1;
-    padding: 13px;
-    border-radius: 12px;
-    border: 2px solid #334155;
-    background: #020617;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: #334155;
     color: white;
-    cursor: pointer;
-    font-size: 15px;
 }
 
-.roleButton.active {
-    border-color: #3b82f6;
-    background: #1d4ed8;
+.roleButton.selected {
+    background: #2563eb;
 }
 
-.inputGroup {
-    margin-bottom: 15px;
+.formGroup {
+    margin-top: 15px;
 }
 
-.inputGroup label {
+.formGroup label {
     display: block;
     margin-bottom: 7px;
     color: #cbd5e1;
 }
 
-.inputGroup input {
+.formGroup input,
+.formGroup select {
     width: 100%;
     padding: 13px;
-    border-radius: 10px;
     border: 1px solid #475569;
-    background: #020617;
+    border-radius: 10px;
+    background: #0f172a;
     color: white;
-    font-size: 16px;
     outline: none;
 }
 
-.inputGroup input:focus {
-    border-color: #60a5fa;
-}
-
-.createButtons {
-    display: flex;
-    gap: 10px;
-}
-
-.createButtons button {
-    flex: 1;
-    padding: 13px;
-    border-radius: 11px;
+.createButton {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
     border: none;
-    cursor: pointer;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
     font-weight: bold;
 }
 
-.saveAccount {
-    background: #22c55e;
-    color: white;
-}
-
-.cancelAccount {
+.backButton {
+    width: 100%;
+    margin-top: 10px;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
     background: #475569;
     color: white;
 }
 
-.errorMessage {
-    color: #f87171;
-    text-align: center;
-    margin-bottom: 12px;
-    min-height: 18px;
-}
-
-/* =========================
-   MAIN APP
-========================= */
+/* APP */
 
 #app {
     display: none;
     min-height: 100vh;
 }
 
-.header {
+.topbar {
     height: 70px;
-    background: #020617;
+    background: #1e293b;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 25px;
-    border-bottom: 1px solid #1e293b;
+    padding: 0 20px;
+    position: sticky;
+    top: 0;
+    z-index: 20;
 }
 
-.header h1 {
-    font-size: 24px;
+.topbar h2 {
+    margin: 0;
 }
 
-.accountButton {
-    background: #1e293b;
-    color: white;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 10px 15px;
-    cursor: pointer;
-}
-
-.accountButton:hover {
+.menuButton {
     background: #334155;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 20px;
 }
-
-/* MAIN */
 
 .mainContent {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: auto;
-    padding: 30px;
+    padding: 25px;
 }
 
 .welcome {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.welcome h2 {
-    font-size: 28px;
-    margin-bottom: 7px;
+.welcome h1 {
+    margin-bottom: 5px;
 }
 
 .welcome p {
     color: #94a3b8;
 }
 
-/* CHILD STATS */
+/* STATS */
 
 .childStats {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.statBox {
+.statCard {
     background: #1e293b;
-    border-radius: 18px;
-    padding: 22px;
-    border: 1px solid #334155;
+    border-radius: 15px;
+    padding: 20px;
 }
 
-.statTitle {
-    color: #94a3b8;
-    font-size: 14px;
-    margin-bottom: 8px;
-}
-
-.statValue {
+.statCard .number {
     font-size: 30px;
     font-weight: bold;
 }
 
-/* LEVEL CARD */
+.statCard .label {
+    color: #94a3b8;
+    margin-top: 5px;
+}
+
+/* LEVEL */
 
 .levelCard {
-    background: linear-gradient(135deg, #1e293b, #172554);
-    border: 1px solid #334155;
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
+    background: #1e293b;
+    border-radius: 18px;
+    padding: 22px;
+    margin-bottom: 20px;
 }
 
-.levelTop {
+.levelHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 15px;
 }
 
-.levelTitle {
-    font-size: 25px;
+.levelHeader h2 {
+    margin: 0;
+}
+
+.levelNumber {
+    font-size: 20px;
     font-weight: bold;
 }
 
-.levelPoints {
-    color: #cbd5e1;
-}
-
-.progressBackground {
-    height: 16px;
+.levelBarBackground {
     width: 100%;
-    background: #020617;
+    height: 18px;
+    background: #0f172a;
     border-radius: 20px;
     overflow: hidden;
-    margin-bottom: 12px;
+    margin-top: 15px;
 }
 
-.progressBar {
+.levelBar {
     height: 100%;
     width: 0%;
-    background: #3b82f6;
+    background: #8b5cf6;
     border-radius: 20px;
-    transition: width 0.4s;
+    transition: width .3s;
 }
 
-.levelInfo {
-    color: #94a3b8;
-    font-size: 14px;
+.levelText {
+    color: #cbd5e1;
+    margin-top: 10px;
 }
 
-/* =========================
-   SHOP
-========================= */
+/* PANELS */
 
+.panel,
 .shopCard {
     background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
-}
-
-.shopHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    border-radius: 18px;
+    padding: 22px;
     margin-bottom: 20px;
 }
 
-.shopHeader h2 {
-    font-size: 24px;
+.panel h2,
+.shopCard h2 {
+    margin-top: 0;
 }
 
-.shopPoints {
-    background: #020617;
-    padding: 8px 13px;
-    border-radius: 12px;
-    color: #facc15;
-    font-weight: bold;
-}
+/* TASK FORM */
 
-.shopItem {
-    background: #020617;
-    border: 1px solid #334155;
-    border-radius: 16px;
-    padding: 20px;
-}
-
-.shopItemIcon {
-    font-size: 45px;
-    margin-bottom: 10px;
-}
-
-.shopItem h3 {
-    font-size: 21px;
-    margin-bottom: 8px;
-}
-
-.shopItem p {
-    color: #94a3b8;
-    margin-bottom: 15px;
-    line-height: 1.5;
-}
-
-.levelUpButton {
-    width: 100%;
-    border: none;
-    padding: 14px;
-    border-radius: 12px;
-    background: #8b5cf6;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.levelUpButton:hover {
-    background: #7c3aed;
-}
-
-.levelUpButton:disabled {
-    background: #475569;
-    color: #94a3b8;
-    cursor: not-allowed;
-}
-
-/* =========================
-   TASK FORM
-========================= */
-
-.panel {
-    background: #1e293b;
-    border-radius: 20px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid #334155;
-}
-
-.panel h2 {
-    margin-bottom: 20px;
-}
-
-.formGrid {
+.taskForm {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
     gap: 12px;
 }
 
-.formGrid input,
-.formGrid select {
+.taskForm input,
+.taskForm select {
     width: 100%;
     padding: 13px;
-    background: #020617;
-    color: white;
-    border: 1px solid #475569;
     border-radius: 10px;
-    outline: none;
-}
-
-.formGrid input:focus,
-.formGrid select:focus {
-    border-color: #60a5fa;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
 }
 
 .addTaskButton {
-    margin-top: 13px;
-    padding: 13px 20px;
+    padding: 14px;
     border: none;
-    border-radius: 11px;
+    border-radius: 10px;
     background: #22c55e;
     color: white;
     font-weight: bold;
-    cursor: pointer;
+    font-size: 16px;
 }
 
-.addTaskButton:hover {
-    background: #16a34a;
-}
+/* TASKS */
 
-/* =========================
-   TASKS
-========================= */
+#taskList {
+    display: grid;
+    gap: 12px;
+}
 
 .task {
     background: #020617;
-    border: 1px solid #334155;
-    padding: 17px;
     border-radius: 14px;
-    margin-bottom: 12px;
+    padding: 17px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 15px;
 }
 
-.taskInfo h3 {
-    margin-bottom: 5px;
+.taskInfo {
+    flex: 1;
 }
 
-.taskInfo p {
-    color: #94a3b8;
-    font-size: 14px;
+.taskInfo h3 {
+    margin: 0 0 8px;
 }
 
 .taskPoints {
     color: #facc15;
     font-weight: bold;
-    margin-top: 5px;
+}
+
+.taskBonus {
+    color: #fb923c;
+    font-weight: bold;
+    margin-top: 6px;
+}
+
+.powerUsedText {
+    margin-top: 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.powerButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.taskPowerUpButton {
+    border: none;
+    border-radius: 8px;
+    padding: 8px 10px;
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
 }
 
 .completeButton {
-    background: #22c55e;
-    border: none;
-    color: white;
     padding: 10px 15px;
-    border-radius: 10px;
-    cursor: pointer;
+    border: none;
+    border-radius: 9px;
+    background: #22c55e;
+    color: white;
     font-weight: bold;
-}
-
-.completeButton:hover {
-    background: #16a34a;
+    white-space: nowrap;
 }
 
 .noTasks {
-    color: #94a3b8;
     text-align: center;
-    padding: 25px;
+    color: #94a3b8;
+    padding: 20px;
 }
 
-/* =========================
-   SIDEBAR
-========================= */
+/* POWER UP SHOP */
 
-#sidebarOverlay {
-    display: none;
+.shopItem {
+    background: #0f172a;
+    border-radius: 15px;
+    padding: 18px;
+    margin-top: 15px;
+}
+
+.shopItem h3 {
+    margin-top: 0;
+}
+
+.shopItem p {
+    color: #94a3b8;
+}
+
+.powerUpGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.powerShopItem {
+    border: 2px solid;
+    border-radius: 14px;
+    padding: 15px;
+    background: #020617;
+}
+
+.powerShopItem h3 {
+    margin: 0 0 7px;
+}
+
+.powerShopItem p {
+    font-size: 13px;
+    margin: 7px 0;
+}
+
+.buyPowerButton {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.levelUpItem {
+    border: 2px solid #8b5cf6;
+}
+
+.levelUpButton {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 10px;
+    background: #8b5cf6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* SIDEBAR */
+
+.sidebarOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.65);
-    z-index: 90;
+    background: rgba(0,0,0,.6);
+    display: none;
+    z-index: 50;
 }
 
-#sidebar {
+.sidebar {
     position: fixed;
-    right: -360px;
     top: 0;
-    width: 340px;
+    right: -330px;
+    width: 330px;
     max-width: 90%;
     height: 100vh;
     background: #1e293b;
-    z-index: 100;
-    padding: 25px;
-    transition: right 0.3s;
+    z-index: 51;
+    padding: 20px;
+    transition: right .25s;
     overflow-y: auto;
 }
 
-#sidebar.open {
+.sidebar.open {
     right: 0;
 }
 
-.sidebarTop {
+.sidebarOverlay.open {
+    display: block;
+}
+
+.sidebarHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
 }
 
 .closeSidebar {
+    border: none;
     background: #334155;
     color: white;
-    border: none;
-    border-radius: 9px;
+    border-radius: 8px;
     padding: 8px 12px;
-    cursor: pointer;
-}
-
-.profileBox {
-    background: #020617;
-    padding: 18px;
-    border-radius: 15px;
-    margin-bottom: 20px;
-}
-
-.profileName {
-    font-size: 21px;
-    font-weight: bold;
-}
-
-.profileRole {
-    color: #94a3b8;
-    margin-top: 4px;
-}
-
-.sidebarTitle {
-    color: #94a3b8;
-    font-size: 13px;
-    margin-bottom: 10px;
-    text-transform: uppercase;
 }
 
 .sidebarAccount {
-    background: #020617;
+    background: #0f172a;
+    border-radius: 10px;
     padding: 13px;
-    border-radius: 11px;
-    margin-bottom: 8px;
+    margin-top: 10px;
     cursor: pointer;
-    border: 1px solid #334155;
 }
 
-.sidebarAccount:hover {
-    border-color: #60a5fa;
+.sidebarButtons {
+    margin-top: 20px;
+    display: grid;
+    gap: 10px;
 }
 
-.sidebarAction {
+.sidebarButton {
     width: 100%;
-    border: none;
     padding: 13px;
-    margin-top: 9px;
-    border-radius: 11px;
-    cursor: pointer;
-    color: white;
+    border: none;
+    border-radius: 10px;
     background: #334155;
-    font-weight: bold;
-}
-
-.sidebarAction:hover {
-    background: #475569;
+    color: white;
 }
 
 .logoutButton {
     background: #dc2626;
 }
 
-.logoutButton:hover {
-    background: #b91c1c;
-}
+/* POPUP */
 
-/* =========================
-   POPUP
-========================= */
-
-#popup {
-    display: none;
+.popupOverlay {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.7);
-    z-index: 200;
+    background: rgba(0,0,0,.7);
+    display: none;
     justify-content: center;
     align-items: center;
+    z-index: 100;
     padding: 20px;
 }
 
-.popupBox {
-    background: #1e293b;
+.popup {
     width: 100%;
     max-width: 400px;
+    background: #1e293b;
     border-radius: 18px;
     padding: 25px;
     text-align: center;
 }
 
-.popupBox h2 {
-    margin-bottom: 12px;
+.popup h2 {
+    margin-top: 0;
 }
 
-.popupBox p {
+.popup p {
     color: #cbd5e1;
-    margin-bottom: 20px;
-    line-height: 1.5;
 }
 
 .popupButtons {
     display: flex;
     gap: 10px;
+    margin-top: 20px;
 }
 
 .popupButtons button {
     flex: 1;
-    padding: 12px;
+    padding: 13px;
     border: none;
     border-radius: 10px;
-    cursor: pointer;
+    color: white;
     font-weight: bold;
 }
 
-.confirmButton {
+.yesButton {
     background: #8b5cf6;
-    color: white;
 }
 
-.cancelButton {
+.noButton {
     background: #475569;
-    color: white;
 }
-
-/* =========================
-   RESPONSIVE
-========================= */
 
 @media (max-width: 700px) {
-
-    .mainContent {
-        padding: 20px;
-    }
 
     .childStats {
         grid-template-columns: 1fr;
     }
 
-    .formGrid {
+    .powerUpGrid {
         grid-template-columns: 1fr;
-    }
-
-    .header {
-        padding: 0 15px;
-    }
-
-    .header h1 {
-        font-size: 20px;
-    }
-
-    .levelTop {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
     }
 
     .task {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
     }
 
     .completeButton {
         width: 100%;
+    }
+
+    .mainContent {
+        padding: 15px;
     }
 }
 </style>
@@ -714,129 +623,103 @@ body {
 
 <body>
 
-<!-- =========================
-     LOGIN SCREEN
-========================= -->
+<!-- ACCOUNT SCREEN -->
 
-<div id="loginScreen">
+<div id="accountScreen">
 
-    <div class="loginBox">
+    <div class="accountBox" id="accountSelectBox">
 
-        <h1>My Goal App 🎯</h1>
+        <h1>🎯 My Goal App</h1>
 
-        <p class="subtitle">
-            Which account are you using?
-        </p>
+        <p>Which account are you using?</p>
 
         <div id="accountList" class="accountList"></div>
 
-        <button
-            class="createAccountButton"
-            onclick="showCreateAccount()">
-            ＋ Create another account
+        <button class="newAccountButton"
+                onclick="showCreateAccount()">
+            ➕ Create New Account
         </button>
 
-        <div id="createAccountBox">
+    </div>
 
-            <hr style="border-color:#334155; margin:25px 0;">
 
-            <h2 style="margin-bottom:18px;">
-                Create an account
-            </h2>
+    <div class="accountBox" id="createAccountBox">
 
-            <div class="roleButtons">
+        <h1>Create Account</h1>
 
-                <button
-                    id="parentRoleButton"
-                    class="roleButton active"
+        <div class="roleButtons">
+
+            <button id="parentRoleButton"
+                    class="roleButton selected"
                     onclick="selectRole('parent')">
-                    👨 Parent
-                </button>
+                👨‍👩‍👧 Parent
+            </button>
 
-                <button
-                    id="childRoleButton"
+            <button id="childRoleButton"
                     class="roleButton"
                     onclick="selectRole('child')">
-                    🧒 Child
-                </button>
-
-            </div>
-
-            <div class="inputGroup">
-
-                <label>Account name</label>
-
-                <input
-                    id="newAccountName"
-                    type="text"
-                    placeholder="Enter name">
-
-            </div>
-
-            <div
-                class="inputGroup"
-                id="passwordGroup">
-
-                <label>Parent password</label>
-
-                <input
-                    id="newAccountPassword"
-                    type="password"
-                    placeholder="Enter password">
-
-            </div>
-
-            <div id="createError" class="errorMessage"></div>
-
-            <div class="createButtons">
-
-                <button
-                    class="saveAccount"
-                    onclick="createAccount()">
-                    Create Account
-                </button>
-
-                <button
-                    class="cancelAccount"
-                    onclick="hideCreateAccount()">
-                    Cancel
-                </button>
-
-            </div>
+                🧒 Child
+            </button>
 
         </div>
+
+        <div class="formGroup">
+
+            <label>Account Name</label>
+
+            <input id="newAccountName"
+                   type="text"
+                   placeholder="Enter name">
+
+        </div>
+
+        <div class="formGroup"
+             id="passwordGroup">
+
+            <label>Password</label>
+
+            <input id="newAccountPassword"
+                   type="password"
+                   placeholder="Enter password">
+
+        </div>
+
+        <button class="createButton"
+                onclick="createAccount()">
+            Create Account
+        </button>
+
+        <button class="backButton"
+                onclick="hideCreateAccount()">
+            ← Back
+        </button>
 
     </div>
 
 </div>
 
 
-<!-- =========================
-     MAIN APP
-========================= -->
+<!-- APP -->
 
 <div id="app">
 
-    <header class="header">
+    <div class="topbar">
 
-        <h1>My Goal App 🎯</h1>
+        <h2>🎯 My Goal App</h2>
 
-        <button
-            class="accountButton"
-            onclick="openSidebar()">
-            👤 Account
+        <button class="menuButton"
+                onclick="openSidebar()">
+            ☰
         </button>
 
-    </header>
+    </div>
 
 
     <main class="mainContent">
 
         <div class="welcome">
 
-            <h2 id="welcomeText">
-                Welcome!
-            </h2>
+            <h1 id="welcomeText"></h1>
 
             <p id="roleText"></p>
 
@@ -845,180 +728,86 @@ body {
 
         <!-- CHILD STATS -->
 
-        <div
-            id="childStats"
-            class="childStats">
+        <div id="childStats"
+             class="childStats">
 
-            <div class="statBox">
+            <div class="statCard">
 
-                <div class="statTitle">
-                    ⭐ Points
+                <div id="pointsNumber"
+                     class="number">
+                    0
                 </div>
 
-                <div
-                    id="pointsDisplay"
-                    class="statValue">
-                    0
+                <div class="label">
+                    Points
                 </div>
 
             </div>
 
-            <div class="statBox">
 
-                <div class="statTitle">
-                    🏆 Level
-                </div>
+            <div class="statCard">
 
-                <div
-                    id="levelDisplay"
-                    class="statValue">
+                <div id="levelNumber"
+                     class="number">
                     1
                 </div>
 
-            </div>
-
-            <div class="statBox">
-
-                <div class="statTitle">
-                    📋 Pending Tasks
+                <div class="label">
+                    Level
                 </div>
 
-                <div
-                    id="pendingDisplay"
-                    class="statValue">
+            </div>
+
+
+            <div class="statCard">
+
+                <div id="pendingNumber"
+                     class="number">
                     0
                 </div>
 
-            </div>
-
-        </div>
-
-
-        <!-- LEVEL PROGRESS -->
-
-        <div
-            id="levelCard"
-            class="levelCard">
-
-            <div class="levelTop">
-
-                <div
-                    id="levelTitle"
-                    class="levelTitle">
-                    ⭐ Level 1
+                <div class="label">
+                    Pending Tasks
                 </div>
-
-                <div
-                    id="levelPoints"
-                    class="levelPoints">
-                    0 / 10 points
-                </div>
-
-            </div>
-
-            <div class="progressBackground">
-
-                <div
-                    id="progressBar"
-                    class="progressBar">
-                </div>
-
-            </div>
-
-            <div
-                id="levelInfo"
-                class="levelInfo">
-                Earn points to unlock your next level.
-            </div>
-
-        </div>
-
-
-        <!-- CHILD SHOP -->
-
-        <div
-            id="shopCard"
-            class="shopCard">
-
-            <div class="shopHeader">
-
-                <h2>🛍️ Shop</h2>
-
-                <div
-                    id="shopPoints"
-                    class="shopPoints">
-                    ⭐ 0
-                </div>
-
-            </div>
-
-            <div class="shopItem">
-
-                <div class="shopItemIcon">
-                    ⬆️
-                </div>
-
-                <h3>
-                    Level Up
-                </h3>
-
-                <p id="levelUpDescription">
-                    Spend points to level up and reach the next level.
-                </p>
-
-                <button
-                    id="levelUpButton"
-                    class="levelUpButton"
-                    onclick="openLevelUpPopup()">
-                    ⬆️ Level Up
-                </button>
 
             </div>
 
         </div>
 
 
-        <!-- PARENT TASK FORM -->
+        <!-- LEVEL METER -->
 
-        <div
-            id="parentTaskPanel"
-            class="panel">
+        <div id="levelCard"
+             class="levelCard">
 
-            <h2>
-                ➕ Add a New Task
-            </h2>
+            <div class="levelHeader">
 
-            <div class="formGrid">
+                <h2>🏆 Level Progress</h2>
 
-                <input
-                    id="taskName"
-                    type="text"
-                    placeholder="What should the child do?">
-
-                <input
-                    id="taskPoints"
-                    type="number"
-                    min="1"
-                    placeholder="Points">
-
-                <select id="taskChild">
-                    <option value="">
-                        Select child
-                    </option>
-                </select>
+                <div id="levelDisplay"
+                     class="levelNumber">
+                    Level 1
+                </div>
 
             </div>
 
-            <button
-                class="addTaskButton"
-                onclick="addTask()">
-                Add Task
-            </button>
+            <div class="levelBarBackground">
+
+                <div id="levelBar"
+                     class="levelBar">
+                </div>
+
+            </div>
+
+            <div id="levelProgressText"
+                 class="levelText">
+                0 / 10 points
+            </div>
 
         </div>
 
 
-        <!-- TASK LIST -->
+        <!-- TASKS DIRECTLY BELOW LEVEL -->
 
         <div class="panel">
 
@@ -1030,101 +819,153 @@ body {
 
         </div>
 
+
+        <!-- SHOP -->
+
+        <div id="shopCard"
+             class="shopCard">
+
+            <h2>🛒 Shop</h2>
+
+
+            <!-- LEVEL UP -->
+
+            <div class="shopItem levelUpItem">
+
+                <h3>⬆️ Level Up</h3>
+
+                <p>
+                    Use your points to move to the next level.
+                </p>
+
+                <p id="levelUpCostText">
+                    Cost: 10 Points
+                </p>
+
+                <button id="levelUpButton"
+                        class="levelUpButton"
+                        onclick="openLevelUpPopup()">
+                    ⬆️ Level Up
+                </button>
+
+            </div>
+
+
+            <!-- ALL POWER UPS -->
+
+            <div class="shopItem">
+
+                <h3>⚡ Power-Ups</h3>
+
+                <p>
+                    Buy power-ups and use them on your tasks.
+                </p>
+
+                <div id="powerUpGrid"
+                     class="powerUpGrid">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PARENT TASK PANEL -->
+
+        <div id="parentTaskPanel"
+             class="panel">
+
+            <h2>➕ Add a New Task</h2>
+
+            <div class="taskForm">
+
+                <input id="taskName"
+                       type="text"
+                       placeholder="What should be done?">
+
+                <input id="taskPoints"
+                       type="number"
+                       min="1"
+                       placeholder="How many points?">
+
+                <select id="taskChild"></select>
+
+                <button class="addTaskButton"
+                        onclick="addTask()">
+                    ➕ Add Task
+                </button>
+
+            </div>
+
+        </div>
+
     </main>
 
 </div>
 
 
-<!-- =========================
-     SIDEBAR
-========================= -->
+<!-- SIDEBAR -->
 
-<div
-    id="sidebarOverlay"
-    onclick="closeSidebar()">
+<div id="sidebarOverlay"
+     class="sidebarOverlay"
+     onclick="closeSidebar()">
 </div>
 
-<div id="sidebar">
+<div id="sidebar"
+     class="sidebar">
 
-    <div class="sidebarTop">
+    <div class="sidebarHeader">
 
-        <h2>Account</h2>
+        <h2>Accounts</h2>
 
-        <button
-            class="closeSidebar"
-            onclick="closeSidebar()">
+        <button class="closeSidebar"
+                onclick="closeSidebar()">
             ✕
         </button>
 
     </div>
 
-
-    <div class="profileBox">
-
-        <div
-            id="sidebarProfileName"
-            class="profileName">
-            Account
-        </div>
-
-        <div
-            id="sidebarProfileRole"
-            class="profileRole">
-            Account
-        </div>
-
-    </div>
-
-
-    <div class="sidebarTitle">
-        Switch Account
-    </div>
-
     <div id="sidebarAccounts"></div>
 
+    <div class="sidebarButtons">
 
-    <button
-        class="sidebarAction"
-        onclick="closeSidebar(); showCreateAccountFromApp();">
-        ＋ Create another account
-    </button>
+        <button class="sidebarButton"
+                onclick="showCreateAccountFromApp()">
+            ➕ Create Another Account
+        </button>
 
-    <button
-        class="sidebarAction"
-        onclick="logout()">
-        🔓 Logout
-    </button>
+        <button class="sidebarButton logoutButton"
+                onclick="logout()">
+            🚪 Log Out
+        </button>
+
+    </div>
 
 </div>
 
 
-<!-- =========================
-     LEVEL UP POPUP
-========================= -->
+<!-- LEVEL UP POPUP -->
 
-<div id="popup">
+<div id="levelUpPopup"
+     class="popupOverlay">
 
-    <div class="popupBox">
+    <div class="popup">
 
-        <h2>
-            ⬆️ Level Up
-        </h2>
+        <h2>⬆️ Level Up</h2>
 
-        <p id="popupText">
+        <p id="levelUpPopupText">
             Are you sure?
         </p>
 
         <div class="popupButtons">
 
-            <button
-                class="confirmButton"
-                onclick="confirmLevelUp()">
+            <button class="yesButton"
+                    onclick="confirmLevelUp()">
                 Yes, Level Up
             </button>
 
-            <button
-                class="cancelButton"
-                onclick="closePopup()">
+            <button class="noButton"
+                    onclick="closePopup()">
                 Cancel
             </button>
 
@@ -1137,9 +978,9 @@ body {
 
 <script>
 
-/* =====================================================
+/* =========================
    DATA
-===================================================== */
+========================= */
 
 let accounts =
     JSON.parse(localStorage.getItem("familyAccounts")) || [];
@@ -1148,60 +989,100 @@ let tasks =
     JSON.parse(localStorage.getItem("goalTasks")) || [];
 
 let currentAccountId = null;
-
 let selectedRole = "parent";
 
 
-/* =====================================================
-   OLD DATA CONVERSION
-===================================================== */
+/* =========================
+   POWER UPS
+========================= */
 
-if (
-    !Array.isArray(accounts) &&
-    accounts &&
-    typeof accounts === "object"
-) {
+const POWER_UPS = {
 
-    const oldAccounts = [];
+    plus1: {
+        name: "🟠 +1",
+        description: "Add +1 point to one task.",
+        cost: 2,
+        color: "#f97316"
+    },
 
-    if (accounts.parent) {
+    double: {
+        name: "🟣 ×2",
+        description: "Double one task's points.",
+        cost: 5,
+        color: "#a855f7"
+    },
 
-        oldAccounts.push({
-            id: "parent_old",
-            type: "parent",
-            name: accounts.parent.name || "Parent",
-            password: accounts.parent.password || "",
-            points: 0,
-            level: 1
-        });
+    triple: {
+        name: "🔥 ×3",
+        description: "Triple one task's points.",
+        cost: 10,
+        color: "#ef4444"
+    },
 
+    plus5: {
+        name: "💰 +5",
+        description: "Add +5 points to one task.",
+        cost: 8,
+        color: "#eab308"
+    },
+
+    doubleReward: {
+        name: "⚡ Double Reward",
+        description: "Make one task worth 2× points.",
+        cost: 8,
+        color: "#06b6d4"
+    },
+
+    plus10: {
+        name: "🌟 +10",
+        description: "Add +10 points to one task.",
+        cost: 15,
+        color: "#ec4899"
+    },
+
+    lucky: {
+        name: "🎯 Lucky Bonus",
+        description: "Randomly gives +1 to +5 points.",
+        cost: 6,
+        color: "#14b8a6"
+    },
+
+    mega: {
+        name: "🚀 Mega Task",
+        description: "Add +15 points to one task.",
+        cost: 20,
+        color: "#3b82f6"
+    },
+
+    quick: {
+        name: "⏱️ Quick Bonus",
+        description: "Add +3 points to one task.",
+        cost: 5,
+        color: "#84cc16"
+    },
+
+    tripleReward: {
+        name: "👑 Triple Reward",
+        description: "Make one task worth 3× points.",
+        cost: 20,
+        color: "#f43f5e"
+    },
+
+    mystery: {
+        name: "🎁 Mystery Box",
+        description: "Randomly gives +2 to +15 points.",
+        cost: 10,
+        color: "#6366f1"
     }
 
-    if (accounts.child) {
-
-        oldAccounts.push({
-            id: "child_old",
-            type: "child",
-            name: accounts.child.name || "Child",
-            password: "",
-            points: accounts.child.points || 0,
-            level: accounts.child.level || 1
-        });
-
-    }
-
-    accounts = oldAccounts;
-
-    localStorage.setItem(
-        "familyAccounts",
-        JSON.stringify(accounts)
-    );
-}
+};
 
 
-/* Make sure old child accounts have level */
+/* =========================
+   OLD DATA SUPPORT
+========================= */
 
-accounts.forEach(function(account) {
+accounts.forEach(account => {
 
     if (account.type === "child") {
 
@@ -1213,34 +1094,29 @@ accounts.forEach(function(account) {
             account.level = 1;
         }
 
+        if (typeof account.powerUps !== "object" ||
+            account.powerUps === null) {
+
+            account.powerUps = {};
+
+        }
+
+        Object.keys(POWER_UPS).forEach(type => {
+
+            if (typeof account.powerUps[type] !== "number") {
+                account.powerUps[type] = 0;
+            }
+
+        });
+
     }
 
 });
 
 
-localStorage.setItem(
-    "familyAccounts",
-    JSON.stringify(accounts)
-);
-
-
-/* =====================================================
-   STARTUP
-===================================================== */
-
-window.addEventListener(
-    "load",
-    function() {
-
-        showAccountSelection();
-
-    }
-);
-
-
-/* =====================================================
-   STORAGE
-===================================================== */
+/* =========================
+   SAVE
+========================= */
 
 function saveData() {
 
@@ -1257,21 +1133,27 @@ function saveData() {
 }
 
 
-/* =====================================================
-   ACCOUNT SELECTION
-===================================================== */
+/* =========================
+   ACCOUNT SCREEN
+========================= */
 
 function showAccountSelection() {
 
     currentAccountId = null;
 
-    document.getElementById("app").style.display = "none";
+    document.getElementById("accountScreen")
+        .style.display = "flex";
 
-    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("accountSelectBox")
+        .style.display = "block";
+
+    document.getElementById("createAccountBox")
+        .style.display = "none";
+
+    document.getElementById("app")
+        .style.display = "none";
 
     renderAccountList();
-
-    hideCreateAccount();
 
 }
 
@@ -1283,71 +1165,64 @@ function renderAccountList() {
 
     list.innerHTML = "";
 
-
     if (accounts.length === 0) {
 
-        list.innerHTML = `
-            <div style="
-                grid-column:1/-1;
-                text-align:center;
-                color:#94a3b8;
-                padding:20px;
-            ">
-                No accounts yet.<br>
-                Create your first account below.
-            </div>
-        `;
+        list.innerHTML =
+            `<p style="text-align:center;color:#94a3b8;">
+                No accounts yet.
+            </p>`;
 
         return;
     }
 
+    accounts.forEach(account => {
 
-    accounts.forEach(function(account) {
+        const button =
+            document.createElement("button");
 
-        const card =
-            document.createElement("div");
+        button.className =
+            "accountButton";
 
-        card.className = "accountCard";
-
-        card.onclick = function() {
+        button.onclick = function() {
 
             selectExistingAccount(account.id);
 
         };
 
+        button.innerHTML = `
 
-        card.innerHTML = `
-
-            <div class="accountIcon">
-                ${account.type === "parent" ? "👨" : "🧒"}
-            </div>
-
-            <div class="accountName">
+            <strong>
                 ${escapeHTML(account.name)}
-            </div>
+            </strong>
 
             <div class="accountType">
-                ${account.type === "parent" ? "Parent" : "Child"}
+                ${
+                    account.type === "parent"
+                        ? "👨‍👩‍👧 Parent Account"
+                        : "🧒 Child Account"
+                }
             </div>
 
         `;
 
-        list.appendChild(card);
+        list.appendChild(button);
 
     });
 
 }
 
 
-/* =====================================================
-   CREATE ACCOUNT SCREEN
-===================================================== */
+/* =========================
+   CREATE ACCOUNT
+========================= */
 
 function showCreateAccount() {
 
-    document.getElementById(
-        "createAccountBox"
-    ).style.display = "block";
+    document.getElementById("accountSelectBox")
+        .style.display = "none";
+
+    document.getElementById("createAccountBox")
+        .style.display = "block";
 
 }
 
@@ -1356,34 +1231,28 @@ function showCreateAccountFromApp() {
 
     closeSidebar();
 
-    document.getElementById("app").style.display = "none";
+    document.getElementById("app")
+        .style.display = "none";
 
-    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("accountScreen")
+        .style.display = "flex";
 
-    renderAccountList();
+    document.getElementById("accountSelectBox")
+        .style.display = "none";
 
-    showCreateAccount();
+    document.getElementById("createAccountBox")
+        .style.display = "block";
 
 }
 
 
 function hideCreateAccount() {
 
-    document.getElementById(
-        "createAccountBox"
-    ).style.display = "none";
+    document.getElementById("createAccountBox")
+        .style.display = "none";
 
-    document.getElementById(
-        "newAccountName"
-    ).value = "";
-
-    document.getElementById(
-        "newAccountPassword"
-    ).value = "";
-
-    document.getElementById(
-        "createError"
-    ).textContent = "";
+    document.getElementById("accountSelectBox")
+        .style.display = "block";
 
 }
 
@@ -1392,29 +1261,23 @@ function selectRole(role) {
 
     selectedRole = role;
 
-
-    document
-        .getElementById("parentRoleButton")
+    document.getElementById("parentRoleButton")
         .classList.toggle(
-            "active",
+            "selected",
             role === "parent"
         );
 
-
-    document
-        .getElementById("childRoleButton")
+    document.getElementById("childRoleButton")
         .classList.toggle(
-            "active",
+            "selected",
             role === "child"
         );
 
-
-    document.getElementById(
-        "passwordGroup"
-    ).style.display =
+    document.getElementById("passwordGroup")
+        .style.display =
         role === "parent"
-        ? "block"
-        : "none";
+            ? "block"
+            : "none";
 
 }
 
@@ -1422,76 +1285,38 @@ function selectRole(role) {
 function createAccount() {
 
     const name =
-        document
-        .getElementById("newAccountName")
-        .value
-        .trim();
-
+        document.getElementById("newAccountName")
+            .value.trim();
 
     const password =
-        document
-        .getElementById("newAccountPassword")
-        .value;
-
-
-    const error =
-        document.getElementById("createError");
-
-
-    error.textContent = "";
-
+        document.getElementById("newAccountPassword")
+            .value;
 
     if (!name) {
 
-        error.textContent =
-            "Please enter a name.";
+        alert("Please enter an account name.");
 
         return;
-
     }
 
+    if (selectedRole === "parent" && !password) {
 
-    const duplicate =
-        accounts.some(function(account) {
-
-            return (
-                account.name.toLowerCase()
-                === name.toLowerCase()
-            );
-
-        });
-
-
-    if (duplicate) {
-
-        error.textContent =
-            "An account with this name already exists.";
+        alert("Please enter a password.");
 
         return;
-
     }
 
+    const powerUps = {};
 
-    if (
-        selectedRole === "parent"
-        && !password
-    ) {
-
-        error.textContent =
-            "Parents need a password.";
-
-        return;
-
-    }
-
+    Object.keys(POWER_UPS).forEach(type => {
+        powerUps[type] = 0;
+    });
 
     const newAccount = {
 
         id:
-            Date.now().toString()
-            + Math.random()
-            .toString(36)
-            .substring(2),
+            Date.now().toString() +
+            Math.random().toString(36).slice(2),
 
         type: selectedRole,
 
@@ -1499,168 +1324,139 @@ function createAccount() {
 
         password:
             selectedRole === "parent"
-            ? password
-            : "",
+                ? password
+                : "",
 
         points: 0,
 
-        level: 1
+        level: 1,
+
+        powerUps: powerUps
 
     };
-
 
     accounts.push(newAccount);
 
     saveData();
 
-    hideCreateAccount();
+    document.getElementById("newAccountName")
+        .value = "";
 
-    renderAccountList();
+    document.getElementById("newAccountPassword")
+        .value = "";
+
+    selectExistingAccount(newAccount.id);
 
 }
 
 
-/* =====================================================
-   LOGIN TO ACCOUNT
-===================================================== */
+/* =========================
+   SELECT ACCOUNT
+========================= */
 
 function selectExistingAccount(id) {
 
     const account =
-        accounts.find(function(a) {
+        accounts.find(a => a.id === id);
 
-            return a.id === id;
-
-        });
-
-
-    if (!account) {
-        return;
-    }
-
+    if (!account) return;
 
     if (account.type === "parent") {
 
         const password =
-            prompt(
-                "Enter the password for " +
-                account.name
-            );
+            prompt("Enter the parent password:");
 
+        if (password === null) return;
 
         if (password !== account.password) {
 
             alert("Wrong password.");
 
             return;
-
         }
 
     }
 
-
-    currentAccountId = account.id;
-
-    localStorage.setItem(
-        "currentAccountId",
-        currentAccountId
-    );
-
+    currentAccountId = id;
 
     openApp();
 
 }
 
 
-/* =====================================================
+/* =========================
    OPEN APP
-===================================================== */
+========================= */
 
 function openApp() {
 
-    document.getElementById(
-        "loginScreen"
-    ).style.display = "none";
+    document.getElementById("accountScreen")
+        .style.display = "none";
 
-
-    document.getElementById(
-        "app"
-    ).style.display = "block";
-
+    document.getElementById("app")
+        .style.display = "block";
 
     renderApp();
 
 }
 
 
-/* =====================================================
+/* =========================
+   CURRENT ACCOUNT
+========================= */
+
+function getCurrentAccount() {
+
+    return accounts.find(
+        account =>
+            account.id === currentAccountId
+    );
+
+}
+
+
+/* =========================
    RENDER APP
-===================================================== */
+========================= */
 
 function renderApp() {
 
     const account =
         getCurrentAccount();
 
+    if (!account) return;
 
-    if (!account) {
-
-        showAccountSelection();
-
-        return;
-
-    }
-
-
-    document.getElementById(
-        "welcomeText"
-    ).textContent =
+    document.getElementById("welcomeText")
+        .textContent =
         "Welcome, " + account.name + "!";
 
-
-    document.getElementById(
-        "roleText"
-    ).textContent =
+    document.getElementById("roleText")
+        .textContent =
         account.type === "parent"
-        ? "You are using the Parent account."
-        : "Complete your tasks and earn points!";
+            ? "Parent Account"
+            : "Child Account";
 
+    const childStats =
+        document.getElementById("childStats");
 
-    document.getElementById(
-        "sidebarProfileName"
-    ).textContent =
-        account.name;
+    const levelCard =
+        document.getElementById("levelCard");
 
+    const shopCard =
+        document.getElementById("shopCard");
 
-    document.getElementById(
-        "sidebarProfileRole"
-    ).textContent =
-        account.type === "parent"
-        ? "👨 Parent"
-        : "🧒 Child";
-
+    const parentTaskPanel =
+        document.getElementById("parentTaskPanel");
 
     if (account.type === "child") {
 
-        document.getElementById(
-            "childStats"
-        ).style.display = "grid";
+        childStats.style.display = "grid";
 
+        levelCard.style.display = "block";
 
-        document.getElementById(
-            "levelCard"
-        ).style.display = "block";
+        shopCard.style.display = "block";
 
-
-        document.getElementById(
-            "shopCard"
-        ).style.display = "block";
-
-
-        document.getElementById(
-            "parentTaskPanel"
-        ).style.display = "none";
-
+        parentTaskPanel.style.display = "none";
 
         renderChildStats();
 
@@ -1672,25 +1468,13 @@ function renderApp() {
 
     } else {
 
-        document.getElementById(
-            "childStats"
-        ).style.display = "none";
+        childStats.style.display = "none";
 
+        levelCard.style.display = "none";
 
-        document.getElementById(
-            "levelCard"
-        ).style.display = "none";
+        shopCard.style.display = "none";
 
-
-        document.getElementById(
-            "shopCard"
-        ).style.display = "none";
-
-
-        document.getElementById(
-            "parentTaskPanel"
-        ).style.display = "block";
-
+        parentTaskPanel.style.display = "block";
 
         renderChildDropdown();
 
@@ -1698,282 +1482,296 @@ function renderApp() {
 
     }
 
-}
-
-
-/* =====================================================
-   GET CURRENT ACCOUNT
-===================================================== */
-
-function getCurrentAccount() {
-
-    return accounts.find(function(account) {
-
-        return account.id === currentAccountId;
-
-    });
+    renderSidebarAccounts();
 
 }
 
 
-/* =====================================================
+/* =========================
    CHILD STATS
-===================================================== */
+========================= */
 
 function renderChildStats() {
 
     const account =
         getCurrentAccount();
 
+    if (!account) return;
 
-    if (!account) {
-        return;
-    }
+    document.getElementById("pointsNumber")
+        .textContent = account.points;
 
+    document.getElementById("levelNumber")
+        .textContent = account.level;
 
-    const pendingTasks =
-        tasks.filter(function(task) {
+    const pending =
+        tasks.filter(task =>
+            task.childId === account.id &&
+            !task.completed
+        ).length;
 
-            return (
-                task.childId === account.id
-                && !task.completed
-            );
-
-        });
-
-
-    document.getElementById(
-        "pointsDisplay"
-    ).textContent =
-        account.points;
-
-
-    document.getElementById(
-        "levelDisplay"
-    ).textContent =
-        account.level;
-
-
-    document.getElementById(
-        "pendingDisplay"
-    ).textContent =
-        pendingTasks.length;
+    document.getElementById("pendingNumber")
+        .textContent = pending;
 
 }
 
 
-/* =====================================================
-   LEVEL SYSTEM
-===================================================== */
-
-/*
-    Level 1 -> Level 2 = 10 points
-    Level 2 -> Level 3 = 40 points
-    Level 3 -> Level 4 = 80 points
-    Level 4 -> Level 5 = 160 points
-    Level 5 -> Level 6 = 320 points
-*/
+/* =========================
+   LEVEL COST
+========================= */
 
 function getLevelUpCost(level) {
 
-    if (level === 1) {
-        return 10;
-    }
+    if (level === 1) return 10;
 
-
-    if (level === 2) {
-        return 40;
-    }
-
+    if (level === 2) return 40;
 
     return 40 * Math.pow(2, level - 2);
 
 }
 
 
+/* =========================
+   LEVEL
+========================= */
+
 function renderChildLevel() {
 
     const account =
         getCurrentAccount();
 
+    if (!account) return;
 
-    if (!account) {
-        return;
-    }
-
+    const level =
+        account.level;
 
     const cost =
-        getLevelUpCost(account.level);
+        getLevelUpCost(level);
 
+    document.getElementById("levelDisplay")
+        .textContent =
+        "Level " + level;
 
-    const percentage =
-        Math.min(
-            100,
-            (account.points / cost) * 100
+    document.getElementById("levelUpCostText")
+        .textContent =
+        "Cost: " + cost + " Points";
+
+    const previousCost =
+        level === 1
+            ? 0
+            : getLevelUpCost(level - 1);
+
+    const needed =
+        cost - previousCost;
+
+    const progress =
+        Math.max(
+            0,
+            account.points - previousCost
         );
 
+    let percentage =
+        (progress / needed) * 100;
 
-    document.getElementById(
-        "levelTitle"
-    ).textContent =
-        "⭐ Level " + account.level;
+    if (percentage > 100) {
+        percentage = 100;
+    }
 
-
-    document.getElementById(
-        "levelPoints"
-    ).textContent =
-        account.points
-        + " / "
-        + cost
-        + " points";
-
-
-    document.getElementById(
-        "progressBar"
-    ).style.width =
+    document.getElementById("levelBar")
+        .style.width =
         percentage + "%";
 
-
-    if (account.points >= cost) {
-
-        document.getElementById(
-            "levelInfo"
-        ).textContent =
-            "🎉 You have enough points to level up!";
-
-    } else {
-
-        const needed =
-            cost - account.points;
-
-
-        document.getElementById(
-            "levelInfo"
-        ).textContent =
-            needed
-            + " more point"
-            + (needed === 1 ? "" : "s")
-            + " needed for Level "
-            + (account.level + 1)
-            + ".";
-
-    }
+    document.getElementById(
+        "levelProgressText"
+    ).textContent =
+        progress +
+        " / " +
+        needed +
+        " points toward Level " +
+        (level + 1);
 
 }
 
 
-/* =====================================================
-   SHOP
-===================================================== */
+/* =========================
+   RENDER SHOP
+========================= */
 
 function renderShop() {
 
     const account =
         getCurrentAccount();
 
-
-    if (!account) {
-        return;
-    }
-
+    if (!account) return;
 
     const cost =
         getLevelUpCost(account.level);
 
-
-    document.getElementById(
-        "shopPoints"
-    ).textContent =
-        "⭐ " + account.points;
-
-
-    document.getElementById(
-        "levelUpDescription"
-    ).textContent =
-        "Spend "
-        + cost
-        + " points to level up from Level "
-        + account.level
-        + " to Level "
-        + (account.level + 1)
-        + ".";
-
-
-    const button =
+    const levelButton =
         document.getElementById(
             "levelUpButton"
         );
 
-
-    button.disabled =
-        account.points < cost;
-
-
     if (account.points >= cost) {
 
-        button.textContent =
-            "⬆️ Level Up for "
-            + cost
-            + " Points";
+        levelButton.disabled = false;
+        levelButton.textContent = "⬆️ Level Up";
+        levelButton.style.opacity = "1";
 
     } else {
 
-        button.textContent =
-            "🔒 Need "
-            + cost
-            + " Points";
+        levelButton.disabled = true;
+        levelButton.textContent =
+            "🔒 Need " + cost + " Points";
+        levelButton.style.opacity = ".5";
 
     }
+
+    const grid =
+        document.getElementById("powerUpGrid");
+
+    grid.innerHTML = "";
+
+    Object.keys(POWER_UPS).forEach(type => {
+
+        const power =
+            POWER_UPS[type];
+
+        const count =
+            account.powerUps[type] || 0;
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "powerShopItem";
+
+        item.style.borderColor =
+            power.color;
+
+        item.innerHTML = `
+
+            <h3>
+                ${power.name}
+            </h3>
+
+            <p>
+                ${power.description}
+            </p>
+
+            <p>
+                You have:
+                <strong>${count}</strong>
+            </p>
+
+            <button
+                class="buyPowerButton"
+                style="background:${power.color}"
+                onclick="buyPowerUp('${type}')">
+
+                ${
+                    account.points >= power.cost
+                        ? "Buy — " + power.cost + " Points"
+                        : "🔒 Need " + power.cost + " Points"
+                }
+
+            </button>
+
+        `;
+
+        grid.appendChild(item);
+
+    });
 
 }
 
 
-/* =====================================================
-   LEVEL UP POPUP
-===================================================== */
+/* =========================
+   BUY POWER UP
+========================= */
+
+function buyPowerUp(type) {
+
+    const account =
+        getCurrentAccount();
+
+    if (!account ||
+        account.type !== "child") return;
+
+    const power =
+        POWER_UPS[type];
+
+    if (!power) return;
+
+    if (account.points < power.cost) {
+
+        alert(
+            "You need " +
+            power.cost +
+            " points."
+        );
+
+        return;
+    }
+
+    account.points -= power.cost;
+
+    if (!account.powerUps) {
+        account.powerUps = {};
+    }
+
+    if (typeof account.powerUps[type] !== "number") {
+        account.powerUps[type] = 0;
+    }
+
+    account.powerUps[type]++;
+
+    saveData();
+
+    renderApp();
+
+}
+
+
+/* =========================
+   LEVEL UP
+========================= */
 
 function openLevelUpPopup() {
 
     const account =
         getCurrentAccount();
 
-
-    if (!account) {
-        return;
-    }
-
+    if (!account ||
+        account.type !== "child") return;
 
     const cost =
         getLevelUpCost(account.level);
 
-
     if (account.points < cost) {
 
         alert(
-            "You need "
-            + (cost - account.points)
-            + " more points."
+            "You need " +
+            cost +
+            " points to level up."
         );
 
         return;
-
     }
 
-
     document.getElementById(
-        "popupText"
+        "levelUpPopupText"
     ).textContent =
-        "Spend "
-        + cost
-        + " points and move from Level "
-        + account.level
-        + " to Level "
-        + (account.level + 1)
-        + "?";
-
+        "Level " +
+        account.level +
+        " → Level " +
+        (account.level + 1) +
+        " for " +
+        cost +
+        " points?";
 
     document.getElementById(
-        "popup"
+        "levelUpPopup"
     ).style.display = "flex";
 
 }
@@ -1982,7 +1780,7 @@ function openLevelUpPopup() {
 function closePopup() {
 
     document.getElementById(
-        "popup"
+        "levelUpPopup"
     ).style.display = "none";
 
 }
@@ -1993,29 +1791,25 @@ function confirmLevelUp() {
     const account =
         getCurrentAccount();
 
-
-    if (!account) {
-        return;
-    }
-
+    if (!account) return;
 
     const cost =
         getLevelUpCost(account.level);
-
 
     if (account.points < cost) {
 
         closePopup();
 
+        alert(
+            "You do not have enough points."
+        );
+
         return;
-
     }
-
 
     account.points -= cost;
 
-    account.level += 1;
-
+    account.level++;
 
     saveData();
 
@@ -2023,138 +1817,105 @@ function confirmLevelUp() {
 
     renderApp();
 
-
-    alert(
-        "🎉 Level Up complete!\n\n"
-        + "You are now Level "
-        + account.level
-        + "!"
-    );
-
 }
 
 
-/* =====================================================
-   PARENT: CHILD DROPDOWN
-===================================================== */
+/* =========================
+   CHILD DROPDOWN
+========================= */
 
 function renderChildDropdown() {
 
     const select =
         document.getElementById("taskChild");
 
-
-    select.innerHTML =
-        `<option value="">
-            Select child
-        </option>`;
-
+    select.innerHTML = "";
 
     const children =
-        accounts.filter(function(account) {
-
-            return account.type === "child";
-
-        });
-
-
-    children.forEach(function(child) {
-
-        const option =
-            document.createElement("option");
-
-
-        option.value =
-            child.id;
-
-
-        option.textContent =
-            child.name;
-
-
-        select.appendChild(option);
-
-    });
-
+        accounts.filter(
+            account =>
+                account.type === "child"
+        );
 
     if (children.length === 0) {
 
         select.innerHTML =
             `<option value="">
-                No child accounts yet
+                No child accounts
             </option>`;
 
+        return;
     }
+
+    children.forEach(child => {
+
+        const option =
+            document.createElement("option");
+
+        option.value =
+            child.id;
+
+        option.textContent =
+            child.name;
+
+        select.appendChild(option);
+
+    });
 
 }
 
 
-/* =====================================================
-   PARENT: ADD TASK
-===================================================== */
+/* =========================
+   ADD TASK
+========================= */
 
 function addTask() {
 
     const name =
-        document
-        .getElementById("taskName")
-        .value
-        .trim();
-
+        document.getElementById("taskName")
+            .value.trim();
 
     const points =
-        parseInt(
-            document
-            .getElementById("taskPoints")
-            .value
+        Number(
+            document.getElementById(
+                "taskPoints"
+            ).value
         );
 
-
     const childId =
-        document
-        .getElementById("taskChild")
-        .value;
-
+        document.getElementById("taskChild")
+            .value;
 
     if (!name) {
 
-        alert("Please enter a task.");
+        alert("Enter a task.");
 
         return;
-
     }
 
-
-    if (
-        !points ||
-        points < 1
-    ) {
+    if (!points || points < 1) {
 
         alert(
-            "Please enter a valid number of points."
+            "Enter a valid number of points."
         );
 
         return;
-
     }
-
 
     if (!childId) {
 
         alert(
-            "Please select a child."
+            "Create a child account first."
         );
 
         return;
-
     }
-
 
     tasks.push({
 
         id:
-            Date.now()
-            + Math.random(),
+            Date.now().toString() +
+            Math.random().toString(36).slice(2),
 
         name: name,
 
@@ -2162,85 +1923,73 @@ function addTask() {
 
         childId: childId,
 
-        completed: false
+        completed: false,
+
+        powerUpUsed: null,
+
+        powerUpBonus: 0,
+
+        powerUpMultiplier: 1
 
     });
 
-
     saveData();
 
+    document.getElementById("taskName")
+        .value = "";
 
-    document.getElementById(
-        "taskName"
-    ).value = "";
+    document.getElementById("taskPoints")
+        .value = "";
 
-
-    document.getElementById(
-        "taskPoints"
-    ).value = "";
-
-
-    document.getElementById(
-        "taskChild"
-    ).value = "";
-
-
-    renderParentTasks();
+    renderApp();
 
 }
 
 
-/* =====================================================
-   PARENT TASK LIST
-===================================================== */
+/* =========================
+   PARENT TASKS
+========================= */
 
 function renderParentTasks() {
 
-    const list =
-        document.getElementById(
-            "taskList"
-        );
+    const account =
+        getCurrentAccount();
 
+    if (!account ||
+        account.type !== "parent") return;
+
+    const list =
+        document.getElementById("taskList");
 
     list.innerHTML = "";
 
+    const parentTasks =
+        tasks.filter(
+            task => !task.completed
+        );
 
-    const incompleteTasks =
-        tasks.filter(function(task) {
-
-            return !task.completed;
-
-        });
-
-
-    if (incompleteTasks.length === 0) {
+    if (parentTasks.length === 0) {
 
         list.innerHTML =
             `<div class="noTasks">
-                🎉 No pending tasks.
+                No tasks yet.
             </div>`;
 
         return;
-
     }
 
-
-    incompleteTasks.forEach(function(task) {
+    parentTasks.forEach(task => {
 
         const child =
-            accounts.find(function(account) {
-
-                return account.id === task.childId;
-
-            });
-
+            accounts.find(
+                account =>
+                    account.id === task.childId
+            );
 
         const div =
             document.createElement("div");
 
-
         div.className = "task";
-
 
         div.innerHTML = `
 
@@ -2250,21 +1999,25 @@ function renderParentTasks() {
                     ${escapeHTML(task.name)}
                 </h3>
 
-                <p>
-                    For:
-                    ${child
-                        ? escapeHTML(child.name)
-                        : "Unknown child"}
-                </p>
-
                 <div class="taskPoints">
                     ⭐ ${task.points} points
+                </div>
+
+                <div style="
+                    color:#94a3b8;
+                    margin-top:5px;
+                ">
+                    👤
+                    ${
+                        child
+                            ? escapeHTML(child.name)
+                            : "Unknown child"
+                    }
                 </div>
 
             </div>
 
         `;
-
 
         list.appendChild(div);
 
@@ -2273,61 +2026,342 @@ function renderParentTasks() {
 }
 
 
-/* =====================================================
-   CHILD TASK LIST
-===================================================== */
+/* =========================
+   GET POWER UP RESULT
+========================= */
+
+function getPowerUpResult(task, type) {
+
+    let points =
+        Number(task.points);
+
+    let text = "";
+    let bonus = 0;
+    let multiplier = 1;
+
+    if (type === "plus1") {
+
+        bonus = 1;
+
+        text =
+            points +
+            " + 1 = " +
+            (points + 1);
+
+    }
+
+    else if (type === "double") {
+
+        multiplier = 2;
+
+        text =
+            points +
+            " × 2 = " +
+            (points * 2);
+
+    }
+
+    else if (type === "triple") {
+
+        multiplier = 3;
+
+        text =
+            points +
+            " × 3 = " +
+            (points * 3);
+
+    }
+
+    else if (type === "plus5") {
+
+        bonus = 5;
+
+        text =
+            points +
+            " + 5 = " +
+            (points + 5);
+
+    }
+
+    else if (type === "doubleReward") {
+
+        multiplier = 2;
+
+        text =
+            points +
+            " × 2 = " +
+            (points * 2);
+
+    }
+
+    else if (type === "plus10") {
+
+        bonus = 10;
+
+        text =
+            points +
+            " + 10 = " +
+            (points + 10);
+
+    }
+
+    else if (type === "lucky") {
+
+        bonus =
+            Math.floor(Math.random() * 5) + 1;
+
+        text =
+            points +
+            " + " +
+            bonus +
+            " = " +
+            (points + bonus);
+
+    }
+
+    else if (type === "mega") {
+
+        bonus = 15;
+
+        text =
+            points +
+            " + 15 = " +
+            (points + 15);
+
+    }
+
+    else if (type === "quick") {
+
+        bonus = 3;
+
+        text =
+            points +
+            " + 3 = " +
+            (points + 3);
+
+    }
+
+    else if (type === "tripleReward") {
+
+        multiplier = 3;
+
+        text =
+            points +
+            " × 3 = " +
+            (points * 3);
+
+    }
+
+    else if (type === "mystery") {
+
+        bonus =
+            Math.floor(Math.random() * 14) + 2;
+
+        text =
+            points +
+            " + " +
+            bonus +
+            " = " +
+            (points + bonus);
+
+    }
+
+    return {
+        text: text,
+        bonus: bonus,
+        multiplier: multiplier
+    };
+
+}
+
+
+/* =========================
+   USE POWER UP
+========================= */
+
+function usePowerUp(taskId, type) {
+
+    const account =
+        getCurrentAccount();
+
+    if (!account ||
+        account.type !== "child") return;
+
+    if (!account.powerUps[type] ||
+        account.powerUps[type] <= 0) {
+
+        alert("You don't have this Power-Up.");
+
+        return;
+    }
+
+    const task =
+        tasks.find(
+            task =>
+                String(task.id) ===
+                String(taskId)
+        );
+
+    if (!task ||
+        task.completed) return;
+
+    if (task.powerUpUsed) {
+
+        alert(
+            "This task already has a Power-Up."
+        );
+
+        return;
+    }
+
+    const result =
+        getPowerUpResult(task, type);
+
+    account.powerUps[type]--;
+
+    task.powerUpUsed = type;
+
+    task.powerUpBonus =
+        result.bonus;
+
+    task.powerUpMultiplier =
+        result.multiplier;
+
+    task.powerUpDisplay =
+        result.text;
+
+    saveData();
+
+    renderApp();
+
+}
+
+
+/* =========================
+   CHILD TASKS
+========================= */
 
 function renderChildTasks() {
 
     const account =
         getCurrentAccount();
 
-
-    if (!account) {
-        return;
-    }
-
+    if (!account ||
+        account.type !== "child") return;
 
     const list =
-        document.getElementById(
-            "taskList"
-        );
-
+        document.getElementById("taskList");
 
     list.innerHTML = "";
 
-
     const childTasks =
-        tasks.filter(function(task) {
-
-            return (
-                task.childId === account.id
-                && !task.completed
-            );
-
-        });
-
+        tasks.filter(
+            task =>
+                task.childId === account.id &&
+                !task.completed
+        );
 
     if (childTasks.length === 0) {
 
         list.innerHTML =
             `<div class="noTasks">
-                🎉 No pending tasks!<br>
-                Great job!
+                🎉 No pending tasks!
             </div>`;
 
         return;
-
     }
 
-
-    childTasks.forEach(function(task) {
+    childTasks.forEach(task => {
 
         const div =
             document.createElement("div");
 
-
         div.className = "task";
+
+        let finalPoints =
+            Number(task.points);
+
+        if (task.powerUpUsed) {
+
+            finalPoints =
+                (
+                    (finalPoints +
+                    Number(task.powerUpBonus || 0))
+                    *
+                    Number(task.powerUpMultiplier || 1)
+                );
+
+        }
+
+        let powerInfo = "";
+
+        if (task.powerUpUsed) {
+
+            const power =
+                POWER_UPS[task.powerUpUsed];
+
+            powerInfo = `
+
+                <div class="taskBonus"
+                     style="color:${power ? power.color : '#facc15'}">
+
+                    ${
+                        power
+                            ? power.name
+                            : "Power-Up"
+                    }
+                    →
+                    ${escapeHTML(
+                        task.powerUpDisplay || ""
+                    )}
+
+                </div>
+
+            `;
+
+        }
+
+
+        let powerButtons = "";
+
+        if (!task.powerUpUsed) {
+
+            powerButtons = `
+                <div class="powerButtons">
+            `;
+
+            Object.keys(POWER_UPS).forEach(type => {
+
+                if (
+                    account.powerUps[type] &&
+                    account.powerUps[type] > 0
+                ) {
+
+                    const power =
+                        POWER_UPS[type];
+
+                    powerButtons += `
+
+                        <button
+                            class="taskPowerUpButton"
+                            style="background:${power.color}"
+                            onclick="usePowerUp('${task.id}','${type}')">
+
+                            ${power.name}
+
+                        </button>
+
+                    `;
+
+                }
+
+            });
+
+            powerButtons += `
+                </div>
+            `;
+
+        }
 
 
         div.innerHTML = `
@@ -2339,19 +2373,24 @@ function renderChildTasks() {
                 </h3>
 
                 <div class="taskPoints">
-                    ⭐ ${task.points} points
+                    ⭐ ${finalPoints} points
                 </div>
+
+                ${powerInfo}
+
+                ${powerButtons}
 
             </div>
 
             <button
                 class="completeButton"
                 onclick="completeTask('${task.id}')">
+
                 ✓ Done
+
             </button>
 
         `;
-
 
         list.appendChild(div);
 
@@ -2360,72 +2399,66 @@ function renderChildTasks() {
 }
 
 
-/* =====================================================
+/* =========================
    COMPLETE TASK
-===================================================== */
+========================= */
 
 function completeTask(taskId) {
 
     const account =
         getCurrentAccount();
 
+    if (!account ||
+        account.type !== "child") return;
 
     const task =
-        tasks.find(function(t) {
+        tasks.find(
+            task =>
+                String(task.id) ===
+                String(taskId)
+        );
 
-            return String(t.id)
-                === String(taskId);
+    if (!task ||
+        task.completed) return;
 
-        });
-
-
-    if (!account || !task) {
-        return;
-    }
-
-
-    if (task.completed) {
-        return;
-    }
-
-
-    task.completed = true;
-
-
-    account.points +=
+    let earnedPoints =
         Number(task.points);
 
+    if (task.powerUpUsed) {
+
+        earnedPoints =
+            (
+                (earnedPoints +
+                Number(task.powerUpBonus || 0))
+                *
+                Number(task.powerUpMultiplier || 1)
+            );
+
+    }
+
+    account.points += earnedPoints;
+
+    task.completed = true;
 
     saveData();
 
     renderApp();
 
-
-    alert(
-        "🎉 Task completed!\n\n"
-        + "You earned "
-        + task.points
-        + " points!"
-    );
-
 }
 
 
-/* =====================================================
+/* =========================
    SIDEBAR
-===================================================== */
+========================= */
 
 function openSidebar() {
 
-    document.getElementById(
-        "sidebar"
-    ).classList.add("open");
-
+    document.getElementById("sidebar")
+        .classList.add("open");
 
     document.getElementById(
         "sidebarOverlay"
-    ).style.display = "block";
-
+    ).classList.add("open");
 
     renderSidebarAccounts();
 
@@ -2434,59 +2467,54 @@ function openSidebar() {
 
 function closeSidebar() {
 
-    document.getElementById(
-        "sidebar"
-    ).classList.remove("open");
-
+    document.getElementById("sidebar")
+        .classList.remove("open");
 
     document.getElementById(
         "sidebarOverlay"
-    ).style.display = "none";
+    ).classList.remove("open");
 
 }
 
 
 function renderSidebarAccounts() {
 
-    const list =
+    const container =
         document.getElementById(
             "sidebarAccounts"
         );
 
+    container.innerHTML = "";
 
-    list.innerHTML = "";
-
-
-    accounts.forEach(function(account) {
+    accounts.forEach(account => {
 
         const div =
             document.createElement("div");
 
-
         div.className =
             "sidebarAccount";
 
-
         div.innerHTML = `
-
-            ${account.type === "parent"
-                ? "👨"
-                : "🧒"}
 
             <strong>
                 ${escapeHTML(account.name)}
             </strong>
 
-            <span style="
+            <div style="
                 color:#94a3b8;
                 font-size:13px;
-                margin-left:5px;
+                margin-top:4px;
             ">
-                ${account.type}
-            </span>
+
+                ${
+                    account.type === "parent"
+                        ? "👨‍👩‍👧 Parent"
+                        : "🧒 Child"
+                }
+
+            </div>
 
         `;
-
 
         div.onclick = function() {
 
@@ -2494,94 +2522,68 @@ function renderSidebarAccounts() {
 
         };
 
-
-        list.appendChild(div);
+        container.appendChild(div);
 
     });
 
 }
 
 
-/* =====================================================
-   SWITCH ACCOUNT
-===================================================== */
-
 function switchAccount(id) {
 
+    closeSidebar();
+
     const account =
-        accounts.find(function(a) {
+        accounts.find(
+            account =>
+                account.id === id
+        );
 
-            return a.id === id;
-
-        });
-
-
-    if (!account) {
-        return;
-    }
-
-
-    if (account.id === currentAccountId) {
-
-        closeSidebar();
-
-        return;
-
-    }
-
+    if (!account) return;
 
     if (account.type === "parent") {
 
         const password =
             prompt(
-                "Enter the password for "
-                + account.name
+                "Enter the parent password:"
             );
 
+        if (password === null) return;
 
         if (password !== account.password) {
 
             alert("Wrong password.");
 
             return;
-
         }
 
     }
 
-
-    currentAccountId = account.id;
-
-
-    localStorage.setItem(
-        "currentAccountId",
-        currentAccountId
-    );
-
-
-    closeSidebar();
+    currentAccountId = id;
 
     renderApp();
 
 }
 
 
-/* =====================================================
+/* =========================
    LOGOUT
-===================================================== */
+========================= */
 
 function logout() {
 
     closeSidebar();
+
+    currentAccountId = null;
 
     showAccountSelection();
 
 }
 
 
-/* =====================================================
+/* =========================
    ESCAPE HTML
-===================================================== */
+========================= */
 
 function escapeHTML(value) {
 
@@ -2593,6 +2595,22 @@ function escapeHTML(value) {
         .replace(/'/g, "&#039;");
 
 }
+
+
+/* =========================
+   START
+========================= */
+
+window.addEventListener(
+    "load",
+    function() {
+
+        saveData();
+
+        showAccountSelection();
+
+    }
+);
 
 </script>
 
