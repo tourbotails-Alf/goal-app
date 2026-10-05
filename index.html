@@ -6,1110 +6,1532 @@
 <title>My Goal App</title>
 
 <style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: Arial, sans-serif;
-    }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-    body {
-        background: #0f172a;
-        color: white;
-        min-height: 100vh;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    min-height: 100vh;
+}
 
-    /* ================= LOGIN ================= */
+/* =========================
+   LOGIN / ACCOUNT SCREEN
+========================= */
 
-    #loginScreen {
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+#loginScreen {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+}
+
+.loginBox {
+    width: 100%;
+    max-width: 650px;
+    background: #1e293b;
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+}
+
+.loginBox h1 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.loginBox .subtitle {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 25px;
+}
+
+.accountList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.accountCard {
+    background: #020617;
+    border: 2px solid #334155;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.accountCard:hover {
+    transform: translateY(-3px);
+    border-color: #60a5fa;
+    background: #111827;
+}
+
+.accountIcon {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.accountName {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.accountType {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.createAccountButton {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 14px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.createAccountButton:hover {
+    background: #1d4ed8;
+}
+
+/* CREATE ACCOUNT */
+
+#createAccountBox {
+    display: none;
+}
+
+.roleButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.roleButton {
+    flex: 1;
+    padding: 13px;
+    border-radius: 12px;
+    border: 2px solid #334155;
+    background: #020617;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.roleButton.active {
+    border-color: #3b82f6;
+    background: #1d4ed8;
+}
+
+.inputGroup {
+    margin-bottom: 15px;
+}
+
+.inputGroup label {
+    display: block;
+    margin-bottom: 7px;
+    color: #cbd5e1;
+}
+
+.inputGroup input {
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    border: 1px solid #475569;
+    background: #020617;
+    color: white;
+    font-size: 16px;
+    outline: none;
+}
+
+.inputGroup input:focus {
+    border-color: #60a5fa;
+}
+
+.createButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.createButtons button {
+    flex: 1;
+    padding: 13px;
+    border-radius: 11px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.saveAccount {
+    background: #22c55e;
+    color: white;
+}
+
+.cancelAccount {
+    background: #475569;
+    color: white;
+}
+
+.errorMessage {
+    color: #f87171;
+    text-align: center;
+    margin-bottom: 12px;
+    min-height: 18px;
+}
+
+/* =========================
+   MAIN APP
+========================= */
+
+#app {
+    display: none;
+    min-height: 100vh;
+}
+
+.header {
+    height: 70px;
+    background: #020617;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    border-bottom: 1px solid #1e293b;
+}
+
+.header h1 {
+    font-size: 24px;
+}
+
+.accountButton {
+    background: #1e293b;
+    color: white;
+    border: 1px solid #334155;
+    border-radius: 12px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.accountButton:hover {
+    background: #334155;
+}
+
+/* MAIN */
+
+.mainContent {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px;
+}
+
+.welcome {
+    margin-bottom: 25px;
+}
+
+.welcome h2 {
+    font-size: 28px;
+    margin-bottom: 7px;
+}
+
+.welcome p {
+    color: #94a3b8;
+}
+
+/* CHILD STATS */
+
+.childStats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.statBox {
+    background: #1e293b;
+    border-radius: 18px;
+    padding: 22px;
+    border: 1px solid #334155;
+}
+
+.statTitle {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.statValue {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+/* LEVEL CARD */
+
+.levelCard {
+    background: linear-gradient(135deg, #1e293b, #172554);
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.levelTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.levelTitle {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.levelPoints {
+    color: #cbd5e1;
+}
+
+.progressBackground {
+    height: 16px;
+    width: 100%;
+    background: #020617;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.progressBar {
+    height: 100%;
+    width: 0%;
+    background: #3b82f6;
+    border-radius: 20px;
+    transition: width 0.4s;
+}
+
+.levelInfo {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+/* =========================
+   SHOP
+========================= */
+
+.shopCard {
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.shopHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.shopHeader h2 {
+    font-size: 24px;
+}
+
+.shopPoints {
+    background: #020617;
+    padding: 8px 13px;
+    border-radius: 12px;
+    color: #facc15;
+    font-weight: bold;
+}
+
+.shopItem {
+    background: #020617;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.shopItemIcon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.shopItem h3 {
+    font-size: 21px;
+    margin-bottom: 8px;
+}
+
+.shopItem p {
+    color: #94a3b8;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.rebirthButton {
+    width: 100%;
+    border: none;
+    padding: 14px;
+    border-radius: 12px;
+    background: #8b5cf6;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.rebirthButton:hover {
+    background: #7c3aed;
+}
+
+.rebirthButton:disabled {
+    background: #475569;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* =========================
+   TASK FORM
+========================= */
+
+.panel {
+    background: #1e293b;
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #334155;
+}
+
+.panel h2 {
+    margin-bottom: 20px;
+}
+
+.formGrid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 12px;
+}
+
+.formGrid input,
+.formGrid select {
+    width: 100%;
+    padding: 13px;
+    background: #020617;
+    color: white;
+    border: 1px solid #475569;
+    border-radius: 10px;
+    outline: none;
+}
+
+.formGrid input:focus,
+.formGrid select:focus {
+    border-color: #60a5fa;
+}
+
+.addTaskButton {
+    margin-top: 13px;
+    padding: 13px 20px;
+    border: none;
+    border-radius: 11px;
+    background: #22c55e;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.addTaskButton:hover {
+    background: #16a34a;
+}
+
+/* =========================
+   TASKS
+========================= */
+
+.task {
+    background: #020617;
+    border: 1px solid #334155;
+    padding: 17px;
+    border-radius: 14px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+}
+
+.taskInfo h3 {
+    margin-bottom: 5px;
+}
+
+.taskInfo p {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.taskPoints {
+    color: #facc15;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.completeButton {
+    background: #22c55e;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.completeButton:hover {
+    background: #16a34a;
+}
+
+.noTasks {
+    color: #94a3b8;
+    text-align: center;
+    padding: 25px;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+#sidebarOverlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.65);
+    z-index: 90;
+}
+
+#sidebar {
+    position: fixed;
+    right: -360px;
+    top: 0;
+    width: 340px;
+    max-width: 90%;
+    height: 100vh;
+    background: #1e293b;
+    z-index: 100;
+    padding: 25px;
+    transition: right 0.3s;
+    overflow-y: auto;
+}
+
+#sidebar.open {
+    right: 0;
+}
+
+.sidebarTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.closeSidebar {
+    background: #334155;
+    color: white;
+    border: none;
+    border-radius: 9px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
+.profileBox {
+    background: #020617;
+    padding: 18px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.profileName {
+    font-size: 21px;
+    font-weight: bold;
+}
+
+.profileRole {
+    color: #94a3b8;
+    margin-top: 4px;
+}
+
+.sidebarTitle {
+    color: #94a3b8;
+    font-size: 13px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.sidebarAccount {
+    background: #020617;
+    padding: 13px;
+    border-radius: 11px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    border: 1px solid #334155;
+}
+
+.sidebarAccount:hover {
+    border-color: #60a5fa;
+}
+
+.sidebarAction {
+    width: 100%;
+    border: none;
+    padding: 13px;
+    margin-top: 9px;
+    border-radius: 11px;
+    cursor: pointer;
+    color: white;
+    background: #334155;
+    font-weight: bold;
+}
+
+.sidebarAction:hover {
+    background: #475569;
+}
+
+.logoutButton {
+    background: #dc2626;
+}
+
+.logoutButton:hover {
+    background: #b91c1c;
+}
+
+/* =========================
+   POPUP
+========================= */
+
+#popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    z-index: 200;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.popupBox {
+    background: #1e293b;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 18px;
+    padding: 25px;
+    text-align: center;
+}
+
+.popupBox h2 {
+    margin-bottom: 12px;
+}
+
+.popupBox p {
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.popupButtons {
+    display: flex;
+    gap: 10px;
+}
+
+.popupButtons button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.confirmButton {
+    background: #8b5cf6;
+    color: white;
+}
+
+.cancelButton {
+    background: #475569;
+    color: white;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .mainContent {
         padding: 20px;
     }
 
-    .login-box {
-        width: 100%;
-        max-width: 420px;
-        background: #1e293b;
-        padding: 35px;
-        border-radius: 20px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    .childStats {
+        grid-template-columns: 1fr;
     }
 
-    .login-box h1 {
-        text-align: center;
-        margin-bottom: 10px;
+    .formGrid {
+        grid-template-columns: 1fr;
     }
 
-    .login-box > p {
-        text-align: center;
-        color: #94a3b8;
-        margin-bottom: 30px;
+    .header {
+        padding: 0 15px;
     }
 
-    .account-choice {
-        display: flex;
-        gap: 12px;
-        margin-bottom: 20px;
-    }
-
-    .account-choice button {
-        flex: 1;
-        padding: 15px;
-        border: 2px solid #334155;
-        background: #0f172a;
-        color: white;
-        border-radius: 12px;
-        cursor: pointer;
-        font-size: 16px;
-    }
-
-    .account-choice button:hover {
-        border-color: #38bdf8;
-    }
-
-    .account-choice button.selected {
-        background: #0284c7;
-        border-color: #38bdf8;
-    }
-
-    .input-group {
-        margin-bottom: 18px;
-    }
-
-    .input-group label {
-        display: block;
-        margin-bottom: 7px;
-        color: #cbd5e1;
-    }
-
-    .input-group input,
-    .input-group select {
-        width: 100%;
-        padding: 13px;
-        border-radius: 10px;
-        border: 1px solid #475569;
-        background: #0f172a;
-        color: white;
-        outline: none;
-        font-size: 15px;
-    }
-
-    .login-btn {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        background: #0284c7;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-        margin-top: 8px;
-    }
-
-    .login-btn:hover {
-        background: #0369a1;
-    }
-
-    .error {
-        color: #f87171;
-        text-align: center;
-        margin-top: 15px;
-        min-height: 20px;
-    }
-
-    /* ================= APP ================= */
-
-    #app {
-        display: none;
-        min-height: 100vh;
-    }
-
-    header {
-        height: 70px;
-        background: #1e293b;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 0 25px;
-        border-bottom: 1px solid #334155;
-    }
-
-    .logo {
-        font-size: 22px;
-        font-weight: bold;
-    }
-
-    .account-button {
-        width: 45px;
-        height: 45px;
-        border-radius: 50%;
-        border: none;
-        background: #0284c7;
-        color: white;
+    .header h1 {
         font-size: 20px;
-        cursor: pointer;
     }
 
-    .account-button:hover {
-        background: #0369a1;
-    }
-
-    main {
-        padding: 35px;
-        max-width: 1100px;
-        margin: auto;
-    }
-
-    .welcome {
-        margin-bottom: 25px;
-    }
-
-    .welcome h1 {
-        font-size: 32px;
-        margin-bottom: 8px;
-    }
-
-    .welcome p {
-        color: #94a3b8;
-    }
-
-    /* ================= POINTS ================= */
-
-    .points-box {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 18px;
-        padding: 25px;
-        margin-bottom: 25px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-    }
-
-    .points-title {
-        color: #94a3b8;
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-
-    .points-number {
-        font-size: 38px;
-        font-weight: bold;
-    }
-
-    .points-star {
-        font-size: 45px;
-    }
-
-    /* ================= TASK FORM ================= */
-
-    .task-form {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 18px;
-        padding: 25px;
-        margin-bottom: 30px;
-    }
-
-    .task-form h2 {
-        margin-bottom: 20px;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 150px 180px;
-        gap: 15px;
-    }
-
-    .task-form input,
-    .task-form select {
-        width: 100%;
-        padding: 14px;
-        border-radius: 10px;
-        border: 1px solid #475569;
-        background: #0f172a;
-        color: white;
-        outline: none;
-        font-size: 15px;
-    }
-
-    .add-task-btn {
-        margin-top: 15px;
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        background: #16a34a;
-        color: white;
-        font-size: 16px;
-        cursor: pointer;
-    }
-
-    .add-task-btn:hover {
-        background: #15803d;
-    }
-
-    /* ================= TASKS ================= */
-
-    .tasks-section {
-        margin-top: 20px;
-    }
-
-    .tasks-section h2 {
-        margin-bottom: 15px;
-    }
-
-    .task-list {
-        display: flex;
+    .levelTop {
         flex-direction: column;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 8px;
     }
 
-    .task-card {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 15px;
-        padding: 18px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
+    .task {
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .task-info {
-        flex: 1;
-    }
-
-    .task-name {
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 7px;
-    }
-
-    .task-points {
-        color: #facc15;
-        font-size: 14px;
-    }
-
-    .task-child {
-        color: #94a3b8;
-        font-size: 13px;
-        margin-top: 5px;
-    }
-
-    .complete-btn {
-        padding: 11px 17px;
-        border: none;
-        border-radius: 9px;
-        background: #16a34a;
-        color: white;
-        cursor: pointer;
-        font-size: 14px;
-        white-space: nowrap;
-    }
-
-    .complete-btn:hover {
-        background: #15803d;
-    }
-
-    .completed-label {
-        color: #4ade80;
-        font-weight: bold;
-        white-space: nowrap;
-    }
-
-    .empty-box {
-        background: #1e293b;
-        border: 1px solid #334155;
-        border-radius: 15px;
-        padding: 35px;
-        text-align: center;
-        color: #94a3b8;
-    }
-
-    .empty-box .empty-icon {
-        font-size: 40px;
-        margin-bottom: 10px;
-    }
-
-    /* ================= SIDEBAR ================= */
-
-    .overlay {
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.55);
-        display: none;
-        z-index: 90;
-    }
-
-    .overlay.show {
-        display: block;
-    }
-
-    .sidebar {
-        position: fixed;
-        right: -380px;
-        top: 0;
-        height: 100vh;
-        width: 360px;
-        max-width: 90%;
-        background: #1e293b;
-        z-index: 100;
-        padding: 25px;
-        box-shadow: -10px 0 30px rgba(0,0,0,0.4);
-        transition: right 0.3s ease;
-        overflow-y: auto;
-    }
-
-    .sidebar.open {
-        right: 0;
-    }
-
-    .sidebar-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 30px;
-    }
-
-    .sidebar-header h2 {
-        font-size: 22px;
-    }
-
-    .close-btn {
-        background: #334155;
-        color: white;
-        border: none;
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-    .profile-box {
-        background: #0f172a;
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 25px;
-        text-align: center;
-    }
-
-    .large-avatar {
-        width: 65px;
-        height: 65px;
-        border-radius: 50%;
-        background: #0284c7;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 12px;
-        font-size: 28px;
-    }
-
-    .profile-box h3 {
-        margin-bottom: 5px;
-    }
-
-    .profile-box p {
-        color: #94a3b8;
-        font-size: 14px;
-    }
-
-    .sidebar-section {
-        margin-bottom: 25px;
-    }
-
-    .sidebar-section-title {
-        color: #94a3b8;
-        font-size: 13px;
-        text-transform: uppercase;
-        margin-bottom: 10px;
-        letter-spacing: 1px;
-    }
-
-    .switch-account {
+    .completeButton {
         width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 14px;
-        margin-bottom: 10px;
-        border: 1px solid #334155;
-        background: #0f172a;
-        color: white;
-        border-radius: 12px;
-        cursor: pointer;
-        text-align: left;
     }
-
-    .switch-account:hover {
-        border-color: #38bdf8;
-        background: #162235;
-    }
-
-    .switch-account.active {
-        border-color: #0284c7;
-        background: #082f49;
-    }
-
-    .switch-icon {
-        width: 40px;
-        height: 40px;
-        background: #334155;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-    }
-
-    .switch-info {
-        flex: 1;
-    }
-
-    .switch-info strong {
-        display: block;
-        margin-bottom: 3px;
-    }
-
-    .switch-info span {
-        color: #94a3b8;
-        font-size: 12px;
-    }
-
-    .check {
-        color: #38bdf8;
-        font-size: 20px;
-    }
-
-    .logout-btn {
-        width: 100%;
-        padding: 14px;
-        border: none;
-        border-radius: 10px;
-        background: #7f1d1d;
-        color: white;
-        cursor: pointer;
-        font-size: 15px;
-    }
-
-    .logout-btn:hover {
-        background: #991b1b;
-    }
-
-    /* ================= MOBILE ================= */
-
-    @media (max-width: 700px) {
-
-        header {
-            padding: 0 15px;
-        }
-
-        main {
-            padding: 25px 15px;
-        }
-
-        .welcome h1 {
-            font-size: 27px;
-        }
-
-        .sidebar {
-            width: 330px;
-        }
-
-        .login-box {
-            padding: 25px;
-        }
-
-        .form-row {
-            grid-template-columns: 1fr;
-        }
-
-        .task-card {
-            flex-direction: column;
-            align-items: stretch;
-        }
-
-        .complete-btn {
-            width: 100%;
-        }
-    }
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
 
-<section id="loginScreen">
+<div id="loginScreen">
 
-    <div class="login-box">
+    <div class="loginBox">
 
         <h1>My Goal App 🎯</h1>
 
-        <p>Choose your account to continue</p>
+        <p class="subtitle">
+            Which account are you using?
+        </p>
 
-        <div class="account-choice">
-
-            <button
-                id="parentChoice"
-                onclick="selectAccount('parent')">
-                👨‍👩‍👧 Parent
-            </button>
-
-            <button
-                id="childChoice"
-                onclick="selectAccount('child')">
-                🧒 Child
-            </button>
-
-        </div>
-
-        <div class="input-group">
-
-            <label>Name</label>
-
-            <input
-                id="nameInput"
-                type="text"
-                placeholder="Enter your name">
-
-        </div>
-
-        <div
-            class="input-group"
-            id="passwordGroup">
-
-            <label>Password</label>
-
-            <input
-                id="passwordInput"
-                type="password"
-                placeholder="Enter parent password">
-
-        </div>
+        <div id="accountList" class="accountList"></div>
 
         <button
-            class="login-btn"
-            onclick="login()">
-
-            Continue
-
+            class="createAccountButton"
+            onclick="showCreateAccount()">
+            ＋ Create another account
         </button>
 
-        <div
-            class="error"
-            id="loginError">
+        <div id="createAccountBox">
+
+            <hr style="border-color:#334155; margin:25px 0;">
+
+            <h2 style="margin-bottom:18px;">
+                Create an account
+            </h2>
+
+            <div class="roleButtons">
+
+                <button
+                    id="parentRoleButton"
+                    class="roleButton active"
+                    onclick="selectRole('parent')">
+                    👨 Parent
+                </button>
+
+                <button
+                    id="childRoleButton"
+                    class="roleButton"
+                    onclick="selectRole('child')">
+                    🧒 Child
+                </button>
+
+            </div>
+
+            <div class="inputGroup">
+
+                <label>Account name</label>
+
+                <input
+                    id="newAccountName"
+                    type="text"
+                    placeholder="Enter name">
+
+            </div>
+
+            <div
+                class="inputGroup"
+                id="passwordGroup">
+
+                <label>Parent password</label>
+
+                <input
+                    id="newAccountPassword"
+                    type="password"
+                    placeholder="Enter password">
+
+            </div>
+
+            <div id="createError" class="errorMessage"></div>
+
+            <div class="createButtons">
+
+                <button
+                    class="saveAccount"
+                    onclick="createAccount()">
+                    Create Account
+                </button>
+
+                <button
+                    class="cancelAccount"
+                    onclick="hideCreateAccount()">
+                    Cancel
+                </button>
+
+            </div>
+
         </div>
 
     </div>
 
-</section>
+</div>
 
 
-<!-- ================= MAIN APP ================= -->
+<!-- =========================
+     MAIN APP
+========================= -->
 
-<section id="app">
+<div id="app">
 
-    <header>
+    <header class="header">
 
-        <div class="logo">
-            My Goal App
-        </div>
+        <h1>My Goal App 🎯</h1>
 
         <button
-            class="account-button"
+            class="accountButton"
             onclick="openSidebar()">
-
-            👤
-
+            👤 Account
         </button>
 
     </header>
 
 
-    <main>
+    <main class="mainContent">
 
         <div class="welcome">
 
-            <h1 id="welcomeTitle">
+            <h2 id="welcomeText">
                 Welcome!
-            </h1>
+            </h2>
 
-            <p id="welcomeText">
-                You are logged in.
-            </p>
+            <p id="roleText"></p>
 
         </div>
 
 
-        <!-- ================= POINTS ================= -->
+        <!-- CHILD STATS -->
 
         <div
-            class="points-box"
-            id="pointsBox">
+            id="childStats"
+            class="childStats">
 
-            <div>
+            <div class="statBox">
 
-                <div class="points-title">
-                    My Points
+                <div class="statTitle">
+                    ⭐ Points
                 </div>
 
                 <div
-                    class="points-number"
-                    id="pointsNumber">
-
+                    id="pointsDisplay"
+                    class="statValue">
                     0
-
                 </div>
 
             </div>
 
-            <div class="points-star">
-                ⭐
+            <div class="statBox">
+
+                <div class="statTitle">
+                    🏆 Level
+                </div>
+
+                <div
+                    id="levelDisplay"
+                    class="statValue">
+                    1
+                </div>
+
+            </div>
+
+            <div class="statBox">
+
+                <div class="statTitle">
+                    📋 Pending Tasks
+                </div>
+
+                <div
+                    id="pendingDisplay"
+                    class="statValue">
+                    0
+                </div>
+
             </div>
 
         </div>
 
 
-        <!-- ================= PARENT TASK FORM ================= -->
+        <!-- LEVEL PROGRESS -->
 
         <div
-            class="task-form"
-            id="parentTaskForm">
+            id="levelCard"
+            class="levelCard">
 
-            <h2>➕ Add a New Task</h2>
+            <div class="levelTop">
 
-            <div class="form-row">
+                <div
+                    id="levelTitle"
+                    class="levelTitle">
+                    ⭐ Level 1
+                </div>
+
+                <div
+                    id="levelPoints"
+                    class="levelPoints">
+                    0 / 10 points
+                </div>
+
+            </div>
+
+            <div class="progressBackground">
+
+                <div
+                    id="progressBar"
+                    class="progressBar">
+                </div>
+
+            </div>
+
+            <div
+                id="levelInfo"
+                class="levelInfo">
+                Earn points to unlock your next level.
+            </div>
+
+        </div>
+
+
+        <!-- CHILD SHOP -->
+
+        <div
+            id="shopCard"
+            class="shopCard">
+
+            <div class="shopHeader">
+
+                <h2>🛍️ Shop</h2>
+
+                <div
+                    id="shopPoints"
+                    class="shopPoints">
+                    ⭐ 0
+                </div>
+
+            </div>
+
+            <div class="shopItem">
+
+                <div class="shopItemIcon">
+                    🔄
+                </div>
+
+                <h3>
+                    Rebirth
+                </h3>
+
+                <p id="rebirthDescription">
+                    Spend points to rebirth and reach the next level.
+                </p>
+
+                <button
+                    id="rebirthButton"
+                    class="rebirthButton"
+                    onclick="openRebirthPopup()">
+                    🔄 Rebirth
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PARENT TASK FORM -->
+
+        <div
+            id="parentTaskPanel"
+            class="panel">
+
+            <h2>
+                ➕ Add a New Task
+            </h2>
+
+            <div class="formGrid">
 
                 <input
-                    id="taskInput"
+                    id="taskName"
                     type="text"
                     placeholder="What should the child do?">
 
                 <input
-                    id="pointsInput"
+                    id="taskPoints"
                     type="number"
                     min="1"
                     placeholder="Points">
 
-                <select id="childSelect">
-                    <option value="">Choose child</option>
+                <select id="taskChild">
+                    <option value="">
+                        Select child
+                    </option>
                 </select>
 
             </div>
 
             <button
-                class="add-task-btn"
+                class="addTaskButton"
                 onclick="addTask()">
-
                 Add Task
-
             </button>
-
-            <div
-                class="error"
-                id="taskError">
-            </div>
 
         </div>
 
 
-        <!-- ================= TASKS ================= -->
+        <!-- TASK LIST -->
 
-        <div class="tasks-section">
+        <div class="panel">
 
             <h2 id="tasksTitle">
                 📋 Tasks
             </h2>
 
-            <div
-                class="task-list"
-                id="taskList">
-            </div>
+            <div id="taskList"></div>
 
         </div>
 
     </main>
 
-</section>
-
-
-<!-- ================= OVERLAY ================= -->
-
-<div
-    class="overlay"
-    id="overlay"
-    onclick="closeSidebar()">
 </div>
 
 
-<!-- ================= SIDEBAR ================= -->
+<!-- =========================
+     SIDEBAR
+========================= -->
 
-<aside
-    class="sidebar"
-    id="sidebar">
+<div
+    id="sidebarOverlay"
+    onclick="closeSidebar()">
+</div>
 
-    <div class="sidebar-header">
+<div id="sidebar">
+
+    <div class="sidebarTop">
 
         <h2>Account</h2>
 
         <button
-            class="close-btn"
+            class="closeSidebar"
             onclick="closeSidebar()">
-            ×
+            ✕
         </button>
 
     </div>
 
 
-    <div class="profile-box">
+    <div class="profileBox">
 
         <div
-            class="large-avatar"
-            id="largeAvatar">
-            👤
+            id="sidebarProfileName"
+            class="profileName">
+            Account
         </div>
 
-        <h3 id="sideName">
-            User
-        </h3>
-
-        <p id="sideRole">
+        <div
+            id="sidebarProfileRole"
+            class="profileRole">
             Account
+        </div>
+
+    </div>
+
+
+    <div class="sidebarTitle">
+        Switch Account
+    </div>
+
+    <div id="sidebarAccounts"></div>
+
+
+    <button
+        class="sidebarAction"
+        onclick="closeSidebar(); showCreateAccountFromApp();">
+        ＋ Create another account
+    </button>
+
+    <button
+        class="sidebarAction"
+        onclick="logout()">
+        🔓 Logout
+    </button>
+
+</div>
+
+
+<!-- =========================
+     REBIRTH POPUP
+========================= -->
+
+<div id="popup">
+
+    <div class="popupBox">
+
+        <h2>
+            🔄 Rebirth
+        </h2>
+
+        <p id="popupText">
+            Are you sure?
         </p>
 
-    </div>
+        <div class="popupButtons">
 
+            <button
+                class="confirmButton"
+                onclick="confirmRebirth()">
+                Yes, Rebirth
+            </button>
 
-    <div class="sidebar-section">
+            <button
+                class="cancelButton"
+                onclick="closePopup()">
+                Cancel
+            </button>
 
-        <div class="sidebar-section-title">
-            Switch account
         </div>
 
-
-        <button
-            class="switch-account"
-            id="parentAccountButton"
-            onclick="switchAccount('parent')">
-
-            <div class="switch-icon">
-                👨‍👩‍👧
-            </div>
-
-            <div class="switch-info">
-
-                <strong id="parentName">
-                    Parent
-                </strong>
-
-                <span>
-                    Parent account
-                </span>
-
-            </div>
-
-            <div
-                class="check"
-                id="parentCheck">
-                ✓
-            </div>
-
-        </button>
-
-
-        <button
-            class="switch-account"
-            id="childAccountButton"
-            onclick="switchAccount('child')">
-
-            <div class="switch-icon">
-                🧒
-            </div>
-
-            <div class="switch-info">
-
-                <strong id="childName">
-                    Child
-                </strong>
-
-                <span>
-                    Child account
-                </span>
-
-            </div>
-
-            <div
-                class="check"
-                id="childCheck">
-                ✓
-            </div>
-
-        </button>
-
     </div>
 
-
-    <div class="sidebar-section">
-
-        <div class="sidebar-section-title">
-            Account
-        </div>
-
-        <button
-            class="logout-btn"
-            onclick="logout()">
-
-            🚪 Log out
-
-        </button>
-
-    </div>
-
-</aside>
+</div>
 
 
 <script>
 
 /* =====================================================
-   ACCOUNT DATA
+   DATA
 ===================================================== */
 
 let accounts =
-    JSON.parse(
-        localStorage.getItem("familyAccounts")
-    ) || {
-        parent: null,
-        child: null
-    };
-
-
-let currentAccount =
-    localStorage.getItem("currentAccount");
-
-
-let selectedType = "parent";
-
-
-/* =====================================================
-   TASK DATA
-===================================================== */
+    JSON.parse(localStorage.getItem("familyAccounts")) || [];
 
 let tasks =
-    JSON.parse(
-        localStorage.getItem("goalTasks")
-    ) || [];
+    JSON.parse(localStorage.getItem("goalTasks")) || [];
+
+let currentAccountId = null;
+
+let selectedRole = "parent";
 
 
 /* =====================================================
-   CHILD POINTS
+   OLD DATA CONVERSION
 ===================================================== */
 
-let childPoints =
-    Number(
-        localStorage.getItem("childPoints")
-    ) || 0;
+if (
+    !Array.isArray(accounts) &&
+    accounts &&
+    typeof accounts === "object"
+) {
 
+    const oldAccounts = [];
 
-/* =====================================================
-   ACCOUNT SELECTION
-===================================================== */
+    if (accounts.parent) {
 
-function selectAccount(type) {
+        oldAccounts.push({
+            id: "parent_old",
+            type: "parent",
+            name: accounts.parent.name || "Parent",
+            password: accounts.parent.password || "",
+            points: 0,
+            level: 1
+        });
 
-    selectedType = type;
-
-
-    document
-        .getElementById("parentChoice")
-        .classList.remove("selected");
-
-
-    document
-        .getElementById("childChoice")
-        .classList.remove("selected");
-
-
-    if (type === "parent") {
-
-        document
-            .getElementById("parentChoice")
-            .classList.add("selected");
-
-
-        document
-            .getElementById("passwordGroup")
-            .style.display = "block";
-
-    } else {
-
-        document
-            .getElementById("childChoice")
-            .classList.add("selected");
-
-
-        document
-            .getElementById("passwordGroup")
-            .style.display = "none";
-
-
-        document
-            .getElementById("passwordInput")
-            .value = "";
     }
+
+    if (accounts.child) {
+
+        oldAccounts.push({
+            id: "child_old",
+            type: "child",
+            name: accounts.child.name || "Child",
+            password: "",
+            points: accounts.child.points || 0,
+            level: accounts.child.level || 1
+        });
+
+    }
+
+    accounts = oldAccounts;
+
+    localStorage.setItem(
+        "familyAccounts",
+        JSON.stringify(accounts)
+    );
 }
 
 
+/* Make sure old child accounts have level */
+
+accounts.forEach(function(account) {
+
+    if (account.type === "child") {
+
+        if (typeof account.points !== "number") {
+            account.points = 0;
+        }
+
+        if (typeof account.level !== "number") {
+            account.level = 1;
+        }
+
+    }
+
+});
+
+
+localStorage.setItem(
+    "familyAccounts",
+    JSON.stringify(accounts)
+);
+
+
 /* =====================================================
-   LOGIN
+   STARTUP
 ===================================================== */
 
-function login() {
+window.addEventListener(
+    "load",
+    function() {
 
-    const name =
-        document
-            .getElementById("nameInput")
-            .value
-            .trim();
+        showAccountSelection();
 
-
-    const password =
-        document
-            .getElementById("passwordInput")
-            .value;
-
-
-    const error =
-        document
-            .getElementById("loginError");
-
-
-    if (!name) {
-
-        error.textContent =
-            "Please enter your name.";
-
-        return;
     }
+);
 
 
-    /* ================= CHILD ================= */
+/* =====================================================
+   STORAGE
+===================================================== */
 
-    if (selectedType === "child") {
-
-        if (!accounts.child) {
-
-            accounts.child = {
-                name: name
-            };
-
-        } else {
-
-            if (
-                accounts.child.name !== name
-            ) {
-
-                error.textContent =
-                    "Incorrect child name.";
-
-                return;
-            }
-        }
-    }
-
-
-    /* ================= PARENT ================= */
-
-    if (selectedType === "parent") {
-
-        if (!password) {
-
-            error.textContent =
-                "Please enter a parent password.";
-
-            return;
-        }
-
-
-        if (!accounts.parent) {
-
-            accounts.parent = {
-                name: name,
-                password: password
-            };
-
-        } else {
-
-            if (
-                accounts.parent.name !== name ||
-                accounts.parent.password !== password
-            ) {
-
-                error.textContent =
-                    "Incorrect parent name or password.";
-
-                return;
-            }
-        }
-    }
-
+function saveData() {
 
     localStorage.setItem(
         "familyAccounts",
         JSON.stringify(accounts)
     );
 
-
-    currentAccount = selectedType;
-
-
     localStorage.setItem(
-        "currentAccount",
-        currentAccount
+        "goalTasks",
+        JSON.stringify(tasks)
     );
+
+}
+
+
+/* =====================================================
+   ACCOUNT SELECTION
+===================================================== */
+
+function showAccountSelection() {
+
+    currentAccountId = null;
+
+    document.getElementById("app").style.display = "none";
+
+    document.getElementById("loginScreen").style.display = "flex";
+
+    renderAccountList();
+
+    hideCreateAccount();
+
+}
+
+
+function renderAccountList() {
+
+    const list =
+        document.getElementById("accountList");
+
+    list.innerHTML = "";
+
+
+    if (accounts.length === 0) {
+
+        list.innerHTML = `
+            <div style="
+                grid-column:1/-1;
+                text-align:center;
+                color:#94a3b8;
+                padding:20px;
+            ">
+                No accounts yet.<br>
+                Create your first account below.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    accounts.forEach(function(account) {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "accountCard";
+
+        card.onclick = function() {
+
+            selectExistingAccount(account.id);
+
+        };
+
+
+        card.innerHTML = `
+
+            <div class="accountIcon">
+                ${account.type === "parent" ? "👨" : "🧒"}
+            </div>
+
+            <div class="accountName">
+                ${escapeHTML(account.name)}
+            </div>
+
+            <div class="accountType">
+                ${account.type === "parent" ? "Parent" : "Child"}
+            </div>
+
+        `;
+
+        list.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   CREATE ACCOUNT SCREEN
+===================================================== */
+
+function showCreateAccount() {
+
+    document.getElementById(
+        "createAccountBox"
+    ).style.display = "block";
+
+}
+
+
+function showCreateAccountFromApp() {
+
+    closeSidebar();
+
+    document.getElementById("app").style.display = "none";
+
+    document.getElementById("loginScreen").style.display = "flex";
+
+    renderAccountList();
+
+    showCreateAccount();
+
+}
+
+
+function hideCreateAccount() {
+
+    document.getElementById(
+        "createAccountBox"
+    ).style.display = "none";
+
+    document.getElementById(
+        "newAccountName"
+    ).value = "";
+
+    document.getElementById(
+        "newAccountPassword"
+    ).value = "";
+
+    document.getElementById(
+        "createError"
+    ).textContent = "";
+
+}
+
+
+function selectRole(role) {
+
+    selectedRole = role;
+
+
+    document
+        .getElementById("parentRoleButton")
+        .classList.toggle(
+            "active",
+            role === "parent"
+        );
+
+
+    document
+        .getElementById("childRoleButton")
+        .classList.toggle(
+            "active",
+            role === "child"
+        );
+
+
+    document.getElementById(
+        "passwordGroup"
+    ).style.display =
+        role === "parent"
+        ? "block"
+        : "none";
+
+}
+
+
+function createAccount() {
+
+    const name =
+        document
+        .getElementById("newAccountName")
+        .value
+        .trim();
+
+
+    const password =
+        document
+        .getElementById("newAccountPassword")
+        .value;
+
+
+    const error =
+        document.getElementById("createError");
 
 
     error.textContent = "";
 
 
-    showApp();
+    if (!name) {
+
+        error.textContent =
+            "Please enter a name.";
+
+        return;
+
+    }
+
+
+    const duplicate =
+        accounts.some(function(account) {
+
+            return (
+                account.name.toLowerCase()
+                === name.toLowerCase()
+            );
+
+        });
+
+
+    if (duplicate) {
+
+        error.textContent =
+            "An account with this name already exists.";
+
+        return;
+
+    }
+
+
+    if (
+        selectedRole === "parent"
+        && !password
+    ) {
+
+        error.textContent =
+            "Parents need a password.";
+
+        return;
+
+    }
+
+
+    const newAccount = {
+
+        id:
+            Date.now().toString()
+            + Math.random()
+            .toString(36)
+            .substring(2),
+
+        type: selectedRole,
+
+        name: name,
+
+        password:
+            selectedRole === "parent"
+            ? password
+            : "",
+
+        points: 0,
+
+        level: 1
+
+    };
+
+
+    accounts.push(newAccount);
+
+    saveData();
+
+    hideCreateAccount();
+
+    renderAccountList();
+
 }
 
 
 /* =====================================================
-   SHOW APP
+   LOGIN TO ACCOUNT
 ===================================================== */
 
-function showApp() {
-
-    document
-        .getElementById("loginScreen")
-        .style.display = "none";
-
-
-    document
-        .getElementById("app")
-        .style.display = "block";
-
-
-    updateInterface();
-}
-
-
-/* =====================================================
-   UPDATE INTERFACE
-===================================================== */
-
-function updateInterface() {
+function selectExistingAccount(id) {
 
     const account =
-        accounts[currentAccount];
+        accounts.find(function(a) {
+
+            return a.id === id;
+
+        });
 
 
     if (!account) {
@@ -1117,450 +1539,824 @@ function updateInterface() {
     }
 
 
-    const role =
-        currentAccount === "parent"
-            ? "Parent"
-            : "Child";
+    if (account.type === "parent") {
+
+        const password =
+            prompt(
+                "Enter the password for " +
+                account.name
+            );
 
 
-    const emoji =
-        currentAccount === "parent"
-            ? "👨‍👩‍👧"
-            : "🧒";
+        if (password !== account.password) {
+
+            alert("Wrong password.");
+
+            return;
+
+        }
+
+    }
 
 
-    document
-        .getElementById("welcomeTitle")
-        .textContent =
+    currentAccountId = account.id;
+
+    localStorage.setItem(
+        "currentAccountId",
+        currentAccountId
+    );
+
+
+    openApp();
+
+}
+
+
+/* =====================================================
+   OPEN APP
+===================================================== */
+
+function openApp() {
+
+    document.getElementById(
+        "loginScreen"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "app"
+    ).style.display = "block";
+
+
+    renderApp();
+
+}
+
+
+/* =====================================================
+   RENDER APP
+===================================================== */
+
+function renderApp() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
+
+        showAccountSelection();
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "welcomeText"
+    ).textContent =
         "Welcome, " + account.name + "!";
 
 
-    document
-        .getElementById("welcomeText")
-        .textContent =
-        "You are using the " +
-        role +
-        " account.";
+    document.getElementById(
+        "roleText"
+    ).textContent =
+        account.type === "parent"
+        ? "You are using the Parent account."
+        : "Complete your tasks and earn points!";
 
 
-    document
-        .getElementById("sideName")
-        .textContent =
+    document.getElementById(
+        "sidebarProfileName"
+    ).textContent =
         account.name;
 
 
-    document
-        .getElementById("sideRole")
-        .textContent =
-        role + " account";
+    document.getElementById(
+        "sidebarProfileRole"
+    ).textContent =
+        account.type === "parent"
+        ? "👨 Parent"
+        : "🧒 Child";
 
 
-    document
-        .getElementById("largeAvatar")
-        .textContent =
-        emoji;
+    if (account.type === "child") {
 
-
-    updateSidebar();
-
-
-    updatePage();
-}
-
-
-/* =====================================================
-   UPDATE PAGE
-===================================================== */
-
-function updatePage() {
-
-    const taskForm =
         document.getElementById(
-            "parentTaskForm"
-        );
+            "childStats"
+        ).style.display = "grid";
 
 
-    const pointsBox =
         document.getElementById(
-            "pointsBox"
-        );
+            "levelCard"
+        ).style.display = "block";
 
 
-    const tasksTitle =
         document.getElementById(
-            "tasksTitle"
-        );
+            "shopCard"
+        ).style.display = "block";
 
 
-    if (currentAccount === "parent") {
-
-        taskForm.style.display =
-            "block";
-
-
-        pointsBox.style.display =
-            "none";
+        document.getElementById(
+            "parentTaskPanel"
+        ).style.display = "none";
 
 
-        tasksTitle.textContent =
-            "📋 All Tasks";
+        renderChildStats();
 
+        renderChildLevel();
 
-        updateChildSelect();
+        renderShop();
 
-        displayParentTasks();
+        renderChildTasks();
 
     } else {
 
-        taskForm.style.display =
-            "none";
+        document.getElementById(
+            "childStats"
+        ).style.display = "none";
 
 
-        pointsBox.style.display =
-            "flex";
+        document.getElementById(
+            "levelCard"
+        ).style.display = "none";
 
 
-        tasksTitle.textContent =
-            "📋 Pending Tasks";
+        document.getElementById(
+            "shopCard"
+        ).style.display = "none";
 
 
-        document
-            .getElementById("pointsNumber")
-            .textContent =
-            childPoints;
+        document.getElementById(
+            "parentTaskPanel"
+        ).style.display = "block";
 
 
-        displayChildTasks();
+        renderChildDropdown();
+
+        renderParentTasks();
+
     }
+
 }
 
 
 /* =====================================================
-   UPDATE CHILD SELECT
+   GET CURRENT ACCOUNT
 ===================================================== */
 
-function updateChildSelect() {
+function getCurrentAccount() {
 
-    const select =
-        document.getElementById(
-            "childSelect"
-        );
+    return accounts.find(function(account) {
 
-
-    select.innerHTML = "";
-
-
-    if (accounts.child) {
-
-        const option =
-            document.createElement("option");
-
-
-        option.value =
-            "child";
-
-
-        option.textContent =
-            accounts.child.name;
-
-
-        select.appendChild(option);
-
-    } else {
-
-        const option =
-            document.createElement("option");
-
-
-        option.value = "";
-
-
-        option.textContent =
-            "No child account";
-
-
-        select.appendChild(option);
-    }
-}
-
-
-/* =====================================================
-   ADD TASK
-===================================================== */
-
-function addTask() {
-
-    const taskInput =
-        document.getElementById(
-            "taskInput"
-        );
-
-
-    const pointsInput =
-        document.getElementById(
-            "pointsInput"
-        );
-
-
-    const childSelect =
-        document.getElementById(
-            "childSelect"
-        );
-
-
-    const error =
-        document.getElementById(
-            "taskError"
-        );
-
-
-    const taskName =
-        taskInput.value.trim();
-
-
-    const points =
-        Number(pointsInput.value);
-
-
-    const child =
-        childSelect.value;
-
-
-    if (!taskName) {
-
-        error.textContent =
-            "Please enter a task.";
-
-        return;
-    }
-
-
-    if (!points || points <= 0) {
-
-        error.textContent =
-            "Please enter valid points.";
-
-        return;
-    }
-
-
-    if (!child) {
-
-        error.textContent =
-            "Please choose a child.";
-
-        return;
-    }
-
-
-    const newTask = {
-
-        id: Date.now(),
-
-        name: taskName,
-
-        points: points,
-
-        child: child,
-
-        completed: false
-
-    };
-
-
-    tasks.push(newTask);
-
-
-    saveTasks();
-
-
-    taskInput.value = "";
-
-    pointsInput.value = "";
-
-    error.textContent = "";
-
-
-    displayParentTasks();
-}
-
-
-/* =====================================================
-   DISPLAY PARENT TASKS
-===================================================== */
-
-function displayParentTasks() {
-
-    const list =
-        document.getElementById(
-            "taskList"
-        );
-
-
-    list.innerHTML = "";
-
-
-    if (tasks.length === 0) {
-
-        list.innerHTML = `
-
-            <div class="empty-box">
-
-                <div class="empty-icon">
-                    📝
-                </div>
-
-                <div>
-                    No tasks yet.
-                </div>
-
-            </div>
-
-        `;
-
-        return;
-    }
-
-
-    tasks.forEach(function(task) {
-
-        const card =
-            document.createElement("div");
-
-
-        card.className =
-            "task-card";
-
-
-        const childName =
-            accounts.child
-                ? accounts.child.name
-                : "Child";
-
-
-        card.innerHTML = `
-
-            <div class="task-info">
-
-                <div class="task-name">
-                    ${escapeHTML(task.name)}
-                </div>
-
-                <div class="task-points">
-                    ⭐ ${task.points} points
-                </div>
-
-                <div class="task-child">
-                    🧒 For: ${escapeHTML(childName)}
-                </div>
-
-            </div>
-
-            ${
-                task.completed
-                ? '<div class="completed-label">✅ Completed</div>'
-                : '<div style="color:#facc15;">⏳ Pending</div>'
-            }
-
-        `;
-
-
-        list.appendChild(card);
+        return account.id === currentAccountId;
 
     });
+
 }
 
 
 /* =====================================================
-   DISPLAY CHILD TASKS
+   CHILD STATS
 ===================================================== */
 
-function displayChildTasks() {
+function renderChildStats() {
 
-    const list =
-        document.getElementById(
-            "taskList"
-        );
+    const account =
+        getCurrentAccount();
 
 
-    list.innerHTML = "";
+    if (!account) {
+        return;
+    }
 
 
     const pendingTasks =
         tasks.filter(function(task) {
 
             return (
-                task.child === "child" &&
-                !task.completed
+                task.childId === account.id
+                && !task.completed
             );
 
         });
 
 
-    if (pendingTasks.length === 0) {
+    document.getElementById(
+        "pointsDisplay"
+    ).textContent =
+        account.points;
 
-        list.innerHTML = `
 
-            <div class="empty-box">
+    document.getElementById(
+        "levelDisplay"
+    ).textContent =
+        account.level;
 
-                <div class="empty-icon">
-                    🎉
-                </div>
 
-                <div>
-                    No pending tasks!
-                </div>
+    document.getElementById(
+        "pendingDisplay"
+    ).textContent =
+        pendingTasks.length;
 
-                <div style="margin-top:8px;">
-                    Great job!
+}
+
+
+/* =====================================================
+   LEVEL SYSTEM
+===================================================== */
+
+/*
+    Level 1 -> Level 2 = 10 points
+    Level 2 -> Level 3 = 40 points
+    Level 3 -> Level 4 = 80 points
+    Level 4 -> Level 5 = 160 points
+    Level 5 -> Level 6 = 320 points
+*/
+
+function getRebirthCost(level) {
+
+    if (level === 1) {
+        return 10;
+    }
+
+
+    if (level === 2) {
+        return 40;
+    }
+
+
+    return 40 * Math.pow(2, level - 2);
+
+}
+
+
+function renderChildLevel() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
+        return;
+    }
+
+
+    const cost =
+        getRebirthCost(account.level);
+
+
+    const percentage =
+        Math.min(
+            100,
+            (account.points / cost) * 100
+        );
+
+
+    document.getElementById(
+        "levelTitle"
+    ).textContent =
+        "⭐ Level " + account.level;
+
+
+    document.getElementById(
+        "levelPoints"
+    ).textContent =
+        account.points
+        + " / "
+        + cost
+        + " points";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percentage + "%";
+
+
+    if (account.points >= cost) {
+
+        document.getElementById(
+            "levelInfo"
+        ).textContent =
+            "🎉 You have enough points for rebirth!";
+
+    } else {
+
+        const needed =
+            cost - account.points;
+
+
+        document.getElementById(
+            "levelInfo"
+        ).textContent =
+            needed
+            + " more point"
+            + (needed === 1 ? "" : "s")
+            + " needed for Level "
+            + (account.level + 1)
+            + ".";
+
+    }
+
+}
+
+
+/* =====================================================
+   SHOP
+===================================================== */
+
+function renderShop() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
+        return;
+    }
+
+
+    const cost =
+        getRebirthCost(account.level);
+
+
+    document.getElementById(
+        "shopPoints"
+    ).textContent =
+        "⭐ " + account.points;
+
+
+    document.getElementById(
+        "rebirthDescription"
+    ).textContent =
+        "Spend "
+        + cost
+        + " points to rebirth from Level "
+        + account.level
+        + " to Level "
+        + (account.level + 1)
+        + ".";
+
+
+    const button =
+        document.getElementById(
+            "rebirthButton"
+        );
+
+
+    button.disabled =
+        account.points < cost;
+
+
+    if (account.points >= cost) {
+
+        button.textContent =
+            "🔄 Rebirth for "
+            + cost
+            + " Points";
+
+    } else {
+
+        button.textContent =
+            "🔒 Need "
+            + cost
+            + " Points";
+
+    }
+
+}
+
+
+/* =====================================================
+   REBIRTH POPUP
+===================================================== */
+
+function openRebirthPopup() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
+        return;
+    }
+
+
+    const cost =
+        getRebirthCost(account.level);
+
+
+    if (account.points < cost) {
+
+        alert(
+            "You need "
+            + (cost - account.points)
+            + " more points."
+        );
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "popupText"
+    ).textContent =
+        "Spend "
+        + cost
+        + " points and move from Level "
+        + account.level
+        + " to Level "
+        + (account.level + 1)
+        + "?";
+
+
+    document.getElementById(
+        "popup"
+    ).style.display = "flex";
+
+}
+
+
+function closePopup() {
+
+    document.getElementById(
+        "popup"
+    ).style.display = "none";
+
+}
+
+
+function confirmRebirth() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
+        return;
+    }
+
+
+    const cost =
+        getRebirthCost(account.level);
+
+
+    if (account.points < cost) {
+
+        closePopup();
+
+        return;
+
+    }
+
+
+    account.points -= cost;
+
+    account.level += 1;
+
+
+    saveData();
+
+    closePopup();
+
+    renderApp();
+
+
+    alert(
+        "🎉 Rebirth complete!\n\n"
+        + "You are now Level "
+        + account.level
+        + "!"
+    );
+
+}
+
+
+/* =====================================================
+   PARENT: CHILD DROPDOWN
+===================================================== */
+
+function renderChildDropdown() {
+
+    const select =
+        document.getElementById("taskChild");
+
+
+    select.innerHTML =
+        `<option value="">
+            Select child
+        </option>`;
+
+
+    const children =
+        accounts.filter(function(account) {
+
+            return account.type === "child";
+
+        });
+
+
+    children.forEach(function(child) {
+
+        const option =
+            document.createElement("option");
+
+
+        option.value =
+            child.id;
+
+
+        option.textContent =
+            child.name;
+
+
+        select.appendChild(option);
+
+    });
+
+
+    if (children.length === 0) {
+
+        select.innerHTML =
+            `<option value="">
+                No child accounts yet
+            </option>`;
+
+    }
+
+}
+
+
+/* =====================================================
+   PARENT: ADD TASK
+===================================================== */
+
+function addTask() {
+
+    const name =
+        document
+        .getElementById("taskName")
+        .value
+        .trim();
+
+
+    const points =
+        parseInt(
+            document
+            .getElementById("taskPoints")
+            .value
+        );
+
+
+    const childId =
+        document
+        .getElementById("taskChild")
+        .value;
+
+
+    if (!name) {
+
+        alert("Please enter a task.");
+
+        return;
+
+    }
+
+
+    if (
+        !points ||
+        points < 1
+    ) {
+
+        alert(
+            "Please enter a valid number of points."
+        );
+
+        return;
+
+    }
+
+
+    if (!childId) {
+
+        alert(
+            "Please select a child."
+        );
+
+        return;
+
+    }
+
+
+    tasks.push({
+
+        id:
+            Date.now()
+            + Math.random(),
+
+        name: name,
+
+        points: points,
+
+        childId: childId,
+
+        completed: false
+
+    });
+
+
+    saveData();
+
+
+    document.getElementById(
+        "taskName"
+    ).value = "";
+
+
+    document.getElementById(
+        "taskPoints"
+    ).value = "";
+
+
+    document.getElementById(
+        "taskChild"
+    ).value = "";
+
+
+    renderParentTasks();
+
+}
+
+
+/* =====================================================
+   PARENT TASK LIST
+===================================================== */
+
+function renderParentTasks() {
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
+
+
+    list.innerHTML = "";
+
+
+    const incompleteTasks =
+        tasks.filter(function(task) {
+
+            return !task.completed;
+
+        });
+
+
+    if (incompleteTasks.length === 0) {
+
+        list.innerHTML =
+            `<div class="noTasks">
+                🎉 No pending tasks.
+            </div>`;
+
+        return;
+
+    }
+
+
+    incompleteTasks.forEach(function(task) {
+
+        const child =
+            accounts.find(function(account) {
+
+                return account.id === task.childId;
+
+            });
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className = "task";
+
+
+        div.innerHTML = `
+
+            <div class="taskInfo">
+
+                <h3>
+                    ${escapeHTML(task.name)}
+                </h3>
+
+                <p>
+                    For:
+                    ${child
+                        ? escapeHTML(child.name)
+                        : "Unknown child"}
+                </p>
+
+                <div class="taskPoints">
+                    ⭐ ${task.points} points
                 </div>
 
             </div>
 
         `;
 
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   CHILD TASK LIST
+===================================================== */
+
+function renderChildTasks() {
+
+    const account =
+        getCurrentAccount();
+
+
+    if (!account) {
         return;
     }
 
 
-    pendingTasks.forEach(function(task) {
+    const list =
+        document.getElementById(
+            "taskList"
+        );
 
-        const card =
+
+    list.innerHTML = "";
+
+
+    const childTasks =
+        tasks.filter(function(task) {
+
+            return (
+                task.childId === account.id
+                && !task.completed
+            );
+
+        });
+
+
+    if (childTasks.length === 0) {
+
+        list.innerHTML =
+            `<div class="noTasks">
+                🎉 No pending tasks!<br>
+                Great job!
+            </div>`;
+
+        return;
+
+    }
+
+
+    childTasks.forEach(function(task) {
+
+        const div =
             document.createElement("div");
 
 
-        card.className =
-            "task-card";
+        div.className = "task";
 
 
-        card.innerHTML = `
+        div.innerHTML = `
 
-            <div class="task-info">
+            <div class="taskInfo">
 
-                <div class="task-name">
+                <h3>
                     ${escapeHTML(task.name)}
-                </div>
+                </h3>
 
-                <div class="task-points">
-                    ⭐ You can earn ${task.points} points
+                <div class="taskPoints">
+                    ⭐ ${task.points} points
                 </div>
 
             </div>
 
             <button
-                class="complete-btn"
-                onclick="completeTask(${task.id})">
-
-                ✅ Complete
-
+                class="completeButton"
+                onclick="completeTask('${task.id}')">
+                ✓ Done
             </button>
 
         `;
 
 
-        list.appendChild(card);
+        list.appendChild(div);
 
     });
+
 }
 
 
@@ -1570,15 +2366,20 @@ function displayChildTasks() {
 
 function completeTask(taskId) {
 
-    const task =
-        tasks.find(function(item) {
+    const account =
+        getCurrentAccount();
 
-            return item.id === taskId;
+
+    const task =
+        tasks.find(function(t) {
+
+            return String(t.id)
+                === String(taskId);
 
         });
 
 
-    if (!task) {
+    if (!account || !task) {
         return;
     }
 
@@ -1591,227 +2392,22 @@ function completeTask(taskId) {
     task.completed = true;
 
 
-    childPoints +=
+    account.points +=
         Number(task.points);
 
 
-    localStorage.setItem(
-        "childPoints",
-        childPoints
+    saveData();
+
+    renderApp();
+
+
+    alert(
+        "🎉 Task completed!\n\n"
+        + "You earned "
+        + task.points
+        + " points!"
     );
 
-
-    saveTasks();
-
-
-    updatePage();
-}
-
-
-/* =====================================================
-   SAVE TASKS
-===================================================== */
-
-function saveTasks() {
-
-    localStorage.setItem(
-        "goalTasks",
-        JSON.stringify(tasks)
-    );
-}
-
-
-/* =====================================================
-   ESCAPE HTML
-===================================================== */
-
-function escapeHTML(text) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent = text;
-
-
-    return div.innerHTML;
-}
-
-
-/* =====================================================
-   UPDATE SIDEBAR
-===================================================== */
-
-function updateSidebar() {
-
-    const parentButton =
-        document.getElementById(
-            "parentAccountButton"
-        );
-
-
-    const childButton =
-        document.getElementById(
-            "childAccountButton"
-        );
-
-
-    const parentCheck =
-        document.getElementById(
-            "parentCheck"
-        );
-
-
-    const childCheck =
-        document.getElementById(
-            "childCheck"
-        );
-
-
-    parentButton
-        .classList
-        .remove("active");
-
-
-    childButton
-        .classList
-        .remove("active");
-
-
-    parentCheck.style.visibility =
-        "hidden";
-
-
-    childCheck.style.visibility =
-        "hidden";
-
-
-    if (accounts.parent) {
-
-        document
-            .getElementById("parentName")
-            .textContent =
-            accounts.parent.name;
-
-
-        parentButton.style.display =
-            "flex";
-
-    } else {
-
-        parentButton.style.display =
-            "none";
-    }
-
-
-    if (accounts.child) {
-
-        document
-            .getElementById("childName")
-            .textContent =
-            accounts.child.name;
-
-
-        childButton.style.display =
-            "flex";
-
-    } else {
-
-        childButton.style.display =
-            "none";
-    }
-
-
-    if (currentAccount === "parent") {
-
-        parentButton
-            .classList
-            .add("active");
-
-
-        parentCheck.style.visibility =
-            "visible";
-    }
-
-
-    if (currentAccount === "child") {
-
-        childButton
-            .classList
-            .add("active");
-
-
-        childCheck.style.visibility =
-            "visible";
-    }
-}
-
-
-/* =====================================================
-   SWITCH ACCOUNT
-===================================================== */
-
-function switchAccount(type) {
-
-    if (!accounts[type]) {
-        return;
-    }
-
-
-    /*
-       CHILD → PARENT
-       Parent password required.
-    */
-
-    if (
-        type === "parent" &&
-        currentAccount === "child"
-    ) {
-
-        const password =
-            prompt(
-                "Enter the Parent password:"
-            );
-
-
-        if (password === null) {
-            return;
-        }
-
-
-        if (
-            password !==
-            accounts.parent.password
-        ) {
-
-            alert(
-                "Incorrect Parent password."
-            );
-
-            return;
-        }
-    }
-
-
-    /*
-       PARENT → CHILD
-       No password required.
-    */
-
-
-    currentAccount = type;
-
-
-    localStorage.setItem(
-        "currentAccount",
-        currentAccount
-    );
-
-
-    updateInterface();
-
-
-    closeSidebar();
 }
 
 
@@ -1821,31 +2417,152 @@ function switchAccount(type) {
 
 function openSidebar() {
 
-    document
-        .getElementById("sidebar")
-        .classList
-        .add("open");
+    document.getElementById(
+        "sidebar"
+    ).classList.add("open");
 
 
-    document
-        .getElementById("overlay")
-        .classList
-        .add("show");
+    document.getElementById(
+        "sidebarOverlay"
+    ).style.display = "block";
+
+
+    renderSidebarAccounts();
+
 }
 
 
 function closeSidebar() {
 
-    document
-        .getElementById("sidebar")
-        .classList
-        .remove("open");
+    document.getElementById(
+        "sidebar"
+    ).classList.remove("open");
 
 
-    document
-        .getElementById("overlay")
-        .classList
-        .remove("show");
+    document.getElementById(
+        "sidebarOverlay"
+    ).style.display = "none";
+
+}
+
+
+function renderSidebarAccounts() {
+
+    const list =
+        document.getElementById(
+            "sidebarAccounts"
+        );
+
+
+    list.innerHTML = "";
+
+
+    accounts.forEach(function(account) {
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "sidebarAccount";
+
+
+        div.innerHTML = `
+
+            ${account.type === "parent"
+                ? "👨"
+                : "🧒"}
+
+            <strong>
+                ${escapeHTML(account.name)}
+            </strong>
+
+            <span style="
+                color:#94a3b8;
+                font-size:13px;
+                margin-left:5px;
+            ">
+                ${account.type}
+            </span>
+
+        `;
+
+
+        div.onclick = function() {
+
+            switchAccount(account.id);
+
+        };
+
+
+        list.appendChild(div);
+
+    });
+
+}
+
+
+/* =====================================================
+   SWITCH ACCOUNT
+===================================================== */
+
+function switchAccount(id) {
+
+    const account =
+        accounts.find(function(a) {
+
+            return a.id === id;
+
+        });
+
+
+    if (!account) {
+        return;
+    }
+
+
+    if (account.id === currentAccountId) {
+
+        closeSidebar();
+
+        return;
+
+    }
+
+
+    if (account.type === "parent") {
+
+        const password =
+            prompt(
+                "Enter the password for "
+                + account.name
+            );
+
+
+        if (password !== account.password) {
+
+            alert("Wrong password.");
+
+            return;
+
+        }
+
+    }
+
+
+    currentAccountId = account.id;
+
+
+    localStorage.setItem(
+        "currentAccountId",
+        currentAccountId
+    );
+
+
+    closeSidebar();
+
+    renderApp();
+
 }
 
 
@@ -1855,66 +2572,26 @@ function closeSidebar() {
 
 function logout() {
 
-    currentAccount = null;
-
-
-    localStorage.removeItem(
-        "currentAccount"
-    );
-
-
-    document
-        .getElementById("app")
-        .style.display = "none";
-
-
-    document
-        .getElementById("loginScreen")
-        .style.display = "flex";
-
-
-    document
-        .getElementById("nameInput")
-        .value = "";
-
-
-    document
-        .getElementById("passwordInput")
-        .value = "";
-
-
-    document
-        .getElementById("loginError")
-        .textContent = "";
-
-
-    selectAccount("parent");
-
-
     closeSidebar();
+
+    showAccountSelection();
+
 }
 
 
 /* =====================================================
-   START APP
+   ESCAPE HTML
 ===================================================== */
 
-if (
-    currentAccount &&
-    accounts[currentAccount]
-) {
+function escapeHTML(value) {
 
-    showApp();
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
 
-} else {
-
-    document
-        .getElementById("loginScreen")
-        .style.display =
-        "flex";
-
-
-    selectAccount("parent");
 }
 
 </script>
